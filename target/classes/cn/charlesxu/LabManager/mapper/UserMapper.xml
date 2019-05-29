@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.charlesxu.LabManager.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="cn.charlesxu.LabManager.entity.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_role" jdbcType="VARCHAR" property="userRole"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="reg_time" jdbcType="TIMESTAMP" property="regTime"/>
+        <result column="reg_ip" jdbcType="VARCHAR" property="regIp"/>
+        <result column="user_nickname" jdbcType="VARCHAR" property="userNickname"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, email, password, user_name, user_role, status, reg_time, reg_ip, user_nickname, phone
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_user
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.charlesxu.LabManager.entity.User">
+        insert into t_user (id, email, password,
+                            user_name, user_role, status,
+                            reg_time, reg_ip, user_nickname, phone
+        )
+        values (#{id,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+                #{userName,jdbcType=VARCHAR}, #{userRole,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+                #{regTime,jdbcType=TIMESTAMP}, #{regIp,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR},
+                #{phone,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="cn.charlesxu.LabManager.entity.User">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="userRole != null">
+                user_role,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="regTime != null">
+                reg_time,
+            </if>
+            <if test="regIp != null">
+                reg_ip,
+            </if>
+            <if test="userNickname != null">
+                user_nickname,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userRole != null">
+                #{userRole,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="regTime != null">
+                #{regTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="regIp != null">
+                #{regIp,jdbcType=VARCHAR},
+            </if>
+            <if test="userNickname != null">
+                #{userNickname,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.charlesxu.LabManager.entity.User">
+        update t_user
+        <set>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userRole != null">
+                user_role = #{userRole,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="regTime != null">
+                reg_time = #{regTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="regIp != null">
+                reg_ip = #{regIp,jdbcType=VARCHAR},
+            </if>
+            <if test="userNickname != null">
+                user_nickname = #{userNickname,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByUserName" parameterType="cn.charlesxu.LabManager.entity.User">
+        update t_user
+        <set>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="userRole != null">
+                user_role = #{userRole,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="regTime != null">
+                reg_time = #{regTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="regIp != null">
+                reg_ip = #{regIp,jdbcType=VARCHAR},
+            </if>
+            <if test="userNickname != null">
+                user_nickname = #{userNickname,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_name = #{userName,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="cn.charlesxu.LabManager.entity.User">
+        update t_user
+        set email         = #{email,jdbcType=VARCHAR},
+            password      = #{password,jdbcType=VARCHAR},
+            user_name     = #{userName,jdbcType=VARCHAR},
+            user_role     = #{userRole,jdbcType=VARCHAR},
+            status        = #{status,jdbcType=INTEGER},
+            reg_time      = #{regTime,jdbcType=TIMESTAMP},
+            reg_ip        = #{regIp,jdbcType=VARCHAR},
+            user_nickname = #{userNickname,jdbcType=VARCHAR},
+            phone         = #{phone,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByUsernameAndPassword" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user
+        WHERE user_name = #{username} AND password = #{password}
+    </select>
+
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user
+        WHERE user_name = #{username}
+    </select>
+
+    <select id="selectCountByUserName" parameterType="java.lang.String" resultType="int">
+        SELECT count(*)
+        FROM t_user
+        WHERE user_name = #{userName}
+    </select>
+
+    <select id="selectCountByEmail" parameterType="java.lang.String" resultType="int">
+        SELECT count(*)
+        FROM t_user
+        WHERE email = #{email}
+    </select>
+
+    <select id="selectCountByPhone" parameterType="java.lang.String" resultType="int">
+        SELECT count(*)
+        FROM t_user
+        WHERE phone = #{phone}
+    </select>
+
+    <select id="selectAllUser" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user
+    </select>
+</mapper>

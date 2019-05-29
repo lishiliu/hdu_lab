@@ -1,0 +1,340 @@
+数据格式
+
+登陆：
+{
+    "userName": "柠檬",
+    "password": "123456"
+}
+
+        url:/order/getUnfinishedSimpleOrderListByUsername
+
+        method:
+第一张表单：
+POST
+{
+    "username": "username",
+    "no": 1,
+    "data": {
+        "course": [
+            "101123123"
+        ],
+        "week": [
+            4,
+            5
+        ],
+        "weekday": [
+            4
+        ],
+        "classNum": [
+            6,
+            12
+        ],
+        "type": [
+            "软件实验室"
+        ]
+    }
+}
+RESPONSE
+{
+    "result": "success",
+    "lab": [
+        {
+            "id": 2,
+            "adminId": 2,
+            "adminName": null,
+            "labName": "软件开发综合实验室",
+            "labType": "软件实验室",
+            "labPeoCount": 100,
+            "labBuild": 1,
+            "labNumber": 105,
+            "labIntroduce": "a",
+            "status": "xxx预约100人"
+        },
+        {
+            "id": 3,
+            "adminId": 3,
+            "adminName": null,
+            "labName": "安卓开发实验室",
+            "labType": "软件实验室",
+            "labPeoCount": 100,
+            "labBuild": 3,
+            "labNumber": 317,
+            "labIntroduce": "a",
+            "status": "xxx预约100人"
+        },
+        {
+            "id": 4,
+            "adminId": 4,
+            "adminName": null,
+            "labName": "苹果开发实验室",
+            "labType": "软件实验室",
+            "labPeoCount": 100,
+            "labBuild": 3,
+            "labNumber": 318,
+            "labIntroduce": "a",
+            "status": "xxx预约100人"
+        }
+    ]
+}
+
+第二张表单
+{
+    "classId": "(2017-2018-1)-A2301020-41478-1",
+    "className": "数据库原理",
+    "classPeoCount": 120, //课程人数
+    "orderDetails": [
+        {
+            "type": 1,
+            "orderWeek": [
+                1,
+                2,
+                3
+            ], //周次
+            "weekDays": [
+                3
+            ], //星期几
+            "classNum": [
+                1,
+                2,
+                3
+            ], //第几节
+            "firstLab": 123,
+            "firstLabPeoCount": 10,
+            //如果没有二、三实验室，下面的不写。
+            "secondLab": 124,
+            "secondLabPeoCount": 20,
+            "thirdLab": 125,
+            "thirdLabPeoCount": 30
+        },
+        //如果没有二三志愿，下面的不写。
+        {
+            "type": 2,
+            "orderWeek": [
+                1,
+                2,
+                3
+            ],
+            "weekDays": [
+                3
+            ],
+            "classNum": [
+                1,
+                2,
+                3
+            ],
+            "firstLab": 123,
+            "firstLabPeoCount": 10,
+            "secondLab": 124,
+            "secondLabPeoCount": 20,
+            "thirdLab": 125,
+            "thirdLabPeoCount": 30
+        },
+        {
+            "type": 3,
+            "orderWeek": [
+                1,
+                2,
+                3
+            ],
+            "weekDays": [
+                3
+            ],
+            "classNum": [
+                1,
+                2,
+                3
+            ],
+            "firstLab": 123,
+            "firstLabPeoCount": 10,
+            "secondLab": 124,
+            "secondLabPeoCount": 20,
+            "thirdLab": 125,
+            "thirdLabPeoCount": 30
+        },
+    ]
+}
+
+
+课表数据结构
+{
+    "timetable": [
+        [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {
+                "course": "数据库课程设计", weeks: '1-15单周', place: '1教115', tbstyle: 'tb', row: 3
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {course: '数据库', weeks: '1-8周', place: '3教211', tbstyle: 'tb', row: 3
+            },
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    ]
+}
+
+课表接口
+/class/getCourseTableByUsername
+POST
+{
+    "userName": "40392"
+}
+
+
+{
+    "classId": "(2017-2018-1)-A0502570-40392-1",
+    "className": "数据库",
+    "classpeoCount": 30,
+    "username": "admin",
+    "orderDetails": [
+        {
+            "type": 1,
+            "orderWeek": [
+                1,
+                3,
+                5,
+                7,
+                9,
+                11,
+                13,
+                15,
+                17,
+                19,
+                21,
+                23,
+                25
+            ],
+            "weekDays": [
+                2
+            ],
+            "classNum": [
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "lab": [
+                2,
+                3,
+                6
+            ],
+            "labPeoCount": [
+                10,
+                10,
+                10
+            ]
+        },
+        {
+            "type": 2,
+            "orderWeek": [],
+            "weekDays": [],
+            "classNum": [],
+            "lab": [],
+            "labPeoCount": []
+        },
+        {
+            "type": 3,
+            "orderWeek": [],
+            "weekDays": [],
+            "classNum": [],
+            "lab": [],
+            "labPeoCount": []
+        }
+    ]
+}

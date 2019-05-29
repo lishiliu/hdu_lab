@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.charlesxu.LabManager.mapper.OrderMapper">
+    <resultMap id="BaseResultMap" type="cn.charlesxu.LabManager.entity.Order">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_name" jdbcType="INTEGER" property="userName"/>
+        <result column="class_id" jdbcType="INTEGER" property="classId"/>
+        <result column="class_name" jdbcType="VARCHAR" property="className"/>
+        <result column="main_class_id" jdbcType="VARCHAR" property="mainClassId"/>
+        <result column="main_class_order" jdbcType="INTEGER" property="mainClassOrder"/>
+        <result column="begin_year" jdbcType="INTEGER" property="beginYear"/>
+        <result column="end_year" jdbcType="INTEGER" property="endYear"/>
+        <result column="term" jdbcType="INTEGER" property="term"/>
+        <result column="class_peo_count" jdbcType="INTEGER" property="classPeoCount"/>
+        <result column="require_tag_string" jdbcType="VARCHAR" property="requireTagString"/>
+        <result column="is_monopolize" jdbcType="INTEGER" property="isMonopolize"/>
+        <result column="pass_flag" jdbcType="INTEGER" property="passFlag"/>
+        <result column="is_auto_arrange_lab" jdbcType="INTEGER" property="isAutoArrangeLab"/>
+        <result column="is_lab_arranged" jdbcType="INTEGER" property="isLabArranged"/>
+        <result column="order_value" jdbcType="INTEGER" property="orderValue"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_modify" jdbcType="TIMESTAMP" property="lastModify"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <collection property="orderDetails" ofType="OrderDetail" resultMap="OrderDetailResultMap"/>
+    </resultMap>
+
+    <resultMap id="SimpleOrderResultMap" type="cn.charlesxu.LabManager.entity.form.SimpleOrder">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_name" jdbcType="INTEGER" property="userName"/>
+        <result column="class_id" jdbcType="INTEGER" property="classId"/>
+        <result column="class_name" jdbcType="VARCHAR" property="className"/>
+        <result column="class_peo_count" jdbcType="INTEGER" property="classPeoCount"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="pass_flag" jdbcType="INTEGER" property="passFlag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_modify" jdbcType="TIMESTAMP" property="lastModify"/>
+    </resultMap>
+
+    <resultMap id="OrderDetailResultMap" type="cn.charlesxu.LabManager.entity.OrderDetail">
+        <id column="order_detail_id" jdbcType="INTEGER" property="id"/>
+        <result column="order_id" jdbcType="INTEGER" property="orderId"/>
+        <result column="order_week_string" jdbcType="VARCHAR" property="orderWeekString"/>
+        <result column="week_days_string" jdbcType="VARCHAR" property="weekDaysString"/>
+        <result column="class_num_string" jdbcType="VARCHAR" property="classNumString"/>
+        <result column="first_lab" jdbcType="INTEGER" property="firstLab"/>
+        <result column="first_lab_peo_count" jdbcType="INTEGER" property="firstLabPeoCount"/>
+        <result column="second_lab" jdbcType="INTEGER" property="secondLab"/>
+        <result column="second_lab_peo_count" jdbcType="INTEGER" property="secondLabPeoCount"/>
+        <result column="third_lab" jdbcType="INTEGER" property="thirdLab"/>
+        <result column="third_lab_peo_count" jdbcType="INTEGER" property="thirdLabPeoCount"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+    </resultMap>
+
+    <sql id="OrderColumn">
+        tor.id,
+        tor.user_name,
+        tor.class_id,
+        tor.class_name,
+        tor.main_class_id,
+        tor.main_class_order,
+        tor.begin_year,
+        tor.end_year,
+        tor.term,
+        tor.class_peo_count,
+        tor.require_tag_string,
+        tor.is_monopolize,
+        tor.is_auto_arrange_lab,
+        tor.is_lab_arranged,
+        tor.order_value,
+        tor.pass_flag,
+        tor.create_time,
+        tor.last_modify,
+        tor.remark,
+        tod.id AS order_detail_id,
+        tod.order_id,
+        tod.order_week_string,
+        tod.week_days_string,
+        tod.class_num_string,
+        tod.first_lab,
+        tod.first_lab_peo_count,
+        tod.second_lab,
+        tod.second_lab_peo_count,
+        tod.third_lab,
+        tod.third_lab_peo_count,
+        tod.`type`
+    </sql>
+
+    <sql id="Base_Column_List">
+        id,
+        user_name,
+        class_id,
+        class_name,
+        class_peo_count,
+        remark,
+        pass_flag,
+        create_time,
+        last_modify
+    </sql>
+
+    <insert id="insert" parameterType="cn.charlesxu.LabManager.entity.Order">
+        insert into t_order (id, user_name, class_id,
+                             class_name, main_class_id, main_class_order,
+                             begin_year, end_year, term,
+                             class_peo_count, require_tag_string, is_monopolize,
+                             is_auto_arrange_lab, is_lab_arranged, order_value,
+                             pass_flag, create_time, last_modify,
+                             remark)
+        values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{classId,jdbcType=VARCHAR},
+                                        #{className,jdbcType=VARCHAR}, #{mainClassId,jdbcType=VARCHAR}, #{mainClassOrder,jdbcType=INTEGER},
+                                        #{beginYear,jdbcType=INTEGER}, #{endYear,jdbcType=INTEGER}, #{term,jdbcType=INTEGER},
+                                        #{classPeoCount,jdbcType=INTEGER}, #{requireTagString,jdbcType=VARCHAR}, #{isMonopolize,jdbcType=INTEGER},
+                #{isAutoArrangeLab,jdbcType=INTEGER}, #{isLabArranged,jdbcType=INTEGER}, #{orderValue,jdbcType=INTEGER},
+                #{passFlag,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastModify,jdbcType=TIMESTAMP},
+                #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="selectOnlyOrder" parameterType="java.lang.Integer" resultMap="SimpleOrderResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_order
+        where id=#{id,jdbcType=INTEGER}
+        ORDER BY user_name ASC ,class_id ASC
+    </select>
+
+    <select id="selectOnlyOrderByUserName" parameterType="java.lang.String" resultMap="SimpleOrderResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_order
+        where user_name=#{userName,jdbcType=VARCHAR}
+        ORDER BY user_name ASC ,class_id ASC
+    </select>
+
+    <select id="selectOnlyOrderByUsernameAndSemester" parameterType="java.lang.String" resultMap="SimpleOrderResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_order
+        where user_name=#{userName,jdbcType=VARCHAR} AND class_id like #{semester}
+        ORDER BY user_name ASC ,class_id ASC
+    </select>
+
+    <select id="selectOnlyOrderByLabId" parameterType="java.lang.Integer" resultMap="SimpleOrderResultMap">
+        select DISTINCT
+            tor.id,
+            tor.user_name,
+            tor.class_id,
+            tor.class_name,
+            tor.class_peo_count,
+            tor.remark,
+            tor.pass_flag,
+            tor.create_time,
+            tor.last_modify
+        from t_order as tor
+            join t_orderdetail as tod
+        where tor.id = tod.order_id AND
+              (tod.first_lab = #{labId,jdbcType=INTEGER} OR tod.second_lab = #{labId,jdbcType=INTEGER} OR
+               tod.third_lab = #{labId,jdbcType=INTEGER})
+        ORDER BY user_name ASC, class_id ASC
+    </select>
+
+    <select id="selectOnlyOrderByLabIdAndSemester" resultMap="SimpleOrderResultMap">
+        select DISTINCT
+            tor.id,
+            tor.user_name,
+            tor.class_id,
+            tor.class_name,
+            tor.class_peo_count,
+            tor.remark,
+            tor.pass_flag,
+            tor.create_time,
+            tor.last_modify
+        from t_order as tor
+            join t_orderdetail as tod
+        where tor.id = tod.order_id AND tor.class_id like #{semester} AND
+              (tod.first_lab = #{labId,jdbcType=INTEGER} OR tod.second_lab = #{labId,jdbcType=INTEGER} OR
+               tod.third_lab = #{labId,jdbcType=INTEGER})
+        ORDER BY user_name ASC, class_id ASC
+    </select>
+
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+          <include refid="OrderColumn"/>
+        from t_order as tor
+            join t_orderdetail as tod
+        where tor.id = tod.order_id AND tor.id = #{id,jdbcType=INTEGER}
+        ORDER BY user_name ASC, class_id ASC
+    </select>
+
+    <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+          <include refid="OrderColumn"/>
+        from t_order as tor
+            join t_orderdetail as tod
+        where tor.id = tod.order_id AND tor.user_name = #{userName,jdbcType=VARCHAR}
+        ORDER BY user_name ASC, class_id ASC
+    </select>
+
+    <select id="selectOrderByUsernameAndSemester" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+          <include refid="OrderColumn"/>
+        from t_order as tor
+            join t_orderdetail as tod
+        where tor.id = tod.order_id AND tor.user_name = #{userName,jdbcType=VARCHAR} AND tor.class_id like #{semester}
+        ORDER BY user_name ASC, class_id ASC
+    </select>
+
+    <select id="selectByLabId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+          <include refid="OrderColumn"/>
+        from t_order as tor
+            join t_orderdetail as tod
+        where tor.id = tod.order_id AND
+              (tod.first_lab = #{labId,jdbcType=INTEGER} OR tod.second_lab = #{labId,jdbcType=INTEGER} OR
+               tod.third_lab = #{labId,jdbcType=INTEGER})
+        ORDER BY user_name ASC, class_id ASC
+    </select>
+
+    <select id="selectOrderByLabIdAndSemester" resultMap="BaseResultMap">
+        select
+          <include refid="OrderColumn"/>
+        from t_order as tor
+            join t_orderdetail as tod
+        where tor.id = tod.order_id AND tor.class_id like #{semester} AND
+              (tod.first_lab = #{labId,jdbcType=INTEGER} OR tod.second_lab = #{labId,jdbcType=INTEGER} OR
+               tod.third_lab = #{labId,jdbcType=INTEGER})
+        ORDER BY user_name ASC, class_id ASC
+    </select>
+
+    <select id="selectAllOrder" resultMap="BaseResultMap">
+        select
+        <include refid="OrderColumn"/>
+        from t_order as tor
+        join t_orderdetail as tod
+        where tor.id = tod.order_id
+        ORDER BY user_name ASC, class_id ASC
+    </select>
+
+    <select id="selectAllOrderBySemester" resultMap="BaseResultMap">
+        select
+        <include refid="OrderColumn"/>
+        from t_order as tor
+        join t_orderdetail as tod
+        where tor.id = tod.order_id AND tor.class_id like #{semester}
+        ORDER BY user_name ASC, class_id ASC
+    </select>
+
+    <update id="update" parameterType="cn.charlesxu.LabManager.entity.Order">
+        update t_order
+        <set>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="classId != null">
+                class_id = #{classId,jdbcType=VARCHAR},
+            </if>
+            <if test="className != null">
+                class_name = #{className,jdbcType=VARCHAR},
+            </if>
+            <if test="mainClassId != null">
+                main_class_id = #{mainClassId,jdbcType=VARCHAR},
+            </if>
+            <if test="mainClassOrder != null">
+                main_class_order = #{mainClassOrder,jdbcType=INTEGER},
+            </if>
+            <if test="beginYear != null">
+                begin_year = #{beginYear,jdbcType=INTEGER},
+            </if>
+            <if test="endYear != null">
+                end_year = #{endYear,jdbcType=INTEGER},
+            </if>
+            <if test="term != null">
+                term = #{term,jdbcType=INTEGER},
+            </if>
+            <if test="classPeoCount != null">
+                class_peo_count = #{classPeoCount,jdbcType=INTEGER},
+            </if>
+            <if test="requireTagString != null">
+                require_tag_string = #{requireTagString,jdbcType=VARCHAR},
+            </if>
+            <if test="isMonopolize != null">
+                is_monopolize = #{isMonopolize,jdbcType=INTEGER},
+            </if>
+            <if test="isAutoArrangeLab != null">
+                is_auto_arrange_lab = #{isAutoArrangeLab,jdbcType=INTEGER},
+            </if>
+            <if test="isLabArranged != null">
+                is_lab_arranged = #{isLabArranged,jdbcType=INTEGER},
+            </if>
+            <if test="orderValue != null">
+                order_value = #{orderValue,jdbcType=INTEGER},
+            </if>
+            <if test="passFlag != null">
+                pass_flag = #{passFlag,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModify != null">
+                last_modify = #{lastModify,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from t_order
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.charlesxu.LabManager.mapper.SystemParameterMapper">
+    <resultMap id="BaseResultMap" type="cn.charlesxu.LabManager.entity.SystemParameter">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="this_semester_id" jdbcType="INTEGER" property="thisSemesterId"/>
+        <result column="now_order_semester_id" jdbcType="INTEGER" property="nowOrderSemesterId"/>
+        <result column="this_week" jdbcType="INTEGER" property="thisWeek"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, this_semester_id, now_order_semester_id, this_week
+    </sql>
+
+    <select id="select" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_systemparameter
+    </select>
+
+    <update id="updateByThisSemesterId" parameterType="java.lang.Integer">
+        update t_systemparameter
+        set
+        <if test="thisSemesterId != null">
+            this_semester_id =#{thisSemesterId,jdbcType=INTEGER}
+        </if>
+    </update>
+
+    <update id="updateByNowOrderSemesterId" parameterType="java.lang.Integer">
+        update t_systemparameter
+        set
+        <if test="nowOrderSemesterId != null">
+            now_order_semester_id =#{nowOrderSemesterId,jdbcType=INTEGER}
+        </if>
+    </update>
+
+    <update id="updateByThisWeek" parameterType="java.lang.Integer">
+        update t_systemparameter
+        set
+        <if test="thisWeek != null">
+            this_week=#{thisWeek,jdbcType=INTEGER}
+        </if>
+    </update>
+
+</mapper>

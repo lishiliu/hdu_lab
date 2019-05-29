@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.charlesxu.LabManager.mapper.ClassMapper">
+    <resultMap id="BaseResultMap" type="cn.charlesxu.LabManager.entity.Class">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="class_id" jdbcType="VARCHAR" property="classId"/>
+        <result column="class_name" jdbcType="VARCHAR" property="className"/>
+        <result column="class_peo_count" jdbcType="INTEGER" property="classPeoCount"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="class_week_string" jdbcType="VARCHAR" property="classWeekString"/>
+        <result column="week_days_string" jdbcType="VARCHAR" property="weekDaysString"/>
+        <result column="class_num_string" jdbcType="VARCHAR" property="classNumString"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, class_id, class_name, class_peo_count, user_name, class_week_string, week_days_string, class_num_string
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_class
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_class
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.charlesxu.LabManager.entity.Class">
+        insert into t_class (id, class_id, class_name,
+                             class_peo_count, user_name, class_week_string, week_days_string,
+                             class_num_string)
+        values (#{id,jdbcType=INTEGER}, #{classId,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR},
+                #{classPeoCount,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{classWeekString,jdbcType=VARCHAR},
+                #{weekDaysString,jdbcType=VARCHAR}, #{classNumString,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.charlesxu.LabManager.entity.Class">
+        insert into t_class
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="classId != null">
+                class_id,
+            </if>
+            <if test="className != null">
+                class_name,
+            </if>
+            <if test="classPeoCount != null">
+                class_peo_count,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="classWeekString != null">
+                class_week_string,
+            </if>
+            <if test="weekDaysString != null">
+                week_days_string,
+            </if>
+            <if test="classNumString != null">
+                class_num_string,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="classId != null">
+                #{classId,jdbcType=VARCHAR},
+            </if>
+            <if test="className != null">
+                #{className,jdbcType=VARCHAR},
+            </if>
+            <if test="classPeoCount != null">
+                #{classPeoCount,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="classWeekString != null">
+                #{classWeekString,jdbcType=VARCHAR},
+            </if>
+            <if test="weekDaysString != null">
+                #{weekDaysString,jdbcType=VARCHAR},
+            </if>
+            <if test="classNumString != null">
+                #{classNumString,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.charlesxu.LabManager.entity.Class">
+        update t_class
+        <set>
+            <if test="classId != null">
+                class_id = #{classId,jdbcType=VARCHAR},
+            </if>
+            <if test="className != null">
+                class_name = #{className,jdbcType=VARCHAR},
+            </if>
+            <if test="classPeoCount != null">
+                class_peo_count = #{classPeoCount,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=INTEGER},
+            </if>
+            <if test="classWeekString != null">
+                class_week_string = #{classWeekString,jdbcType=VARCHAR},
+            </if>
+            <if test="weekDaysString != null">
+                week_days_string = #{weekDaysString,jdbcType=VARCHAR},
+            </if>
+            <if test="classNumString != null">
+                class_num_string = #{classNumString,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.charlesxu.LabManager.entity.Class">
+        update t_class
+        set class_id          = #{classId,jdbcType=VARCHAR},
+            class_name        = #{className,jdbcType=VARCHAR},
+            class_peo_count   = #{classPeoCount,jdbcType=INTEGER},
+            user_name         = #{userName,jdbcType=INTEGER},
+            class_week_string = #{classWeekString,jdbcType=VARCHAR},
+            week_days_string  = #{weekDaysString,jdbcType=VARCHAR},
+            class_num_string  = #{classNumString,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_class
+        where user_name = #{userName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByUserNameAndSemester" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_class
+        where user_name = #{userName,jdbcType=VARCHAR} AND class_id like #{semester}
+    </select>
+
+</mapper>

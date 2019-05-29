@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.charlesxu.LabManager.mapper.LabMapper">
+    <resultMap id="BaseResultMap" type="cn.charlesxu.LabManager.entity.Lab">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="admin_user_name" jdbcType="VARCHAR" property="adminUserName" />
+        <result column="lab_name" jdbcType="VARCHAR" property="labName" />
+        <result column="lab_type" jdbcType="VARCHAR" property="labType" />
+        <result column="lab_peo_count" jdbcType="INTEGER" property="labPeoCount" />
+        <result column="lab_build" jdbcType="INTEGER" property="labBuild" />
+        <result column="lab_number" jdbcType="INTEGER" property="labNumber" />
+        <result column="lab_introduce" jdbcType="VARCHAR" property="labIntroduce" />
+        <result column="lab_usage" jdbcType="INTEGER" property="labUsage" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, admin_user_name, lab_name, lab_type, lab_peo_count, lab_build, lab_number, lab_introduce,
+        lab_usage
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_lab
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_lab
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.charlesxu.LabManager.entity.Lab">
+        insert into t_lab (id, admin_user_name, lab_name,
+                           lab_type, lab_peo_count, lab_build,
+                           lab_number, lab_introduce, lab_usage
+        )
+        values (#{id,jdbcType=INTEGER}, #{adminUserName,jdbcType=VARCHAR}, #{labName,jdbcType=VARCHAR},
+                #{labType,jdbcType=VARCHAR}, #{labPeoCount,jdbcType=INTEGER}, #{labBuild,jdbcType=INTEGER},
+                #{labNumber,jdbcType=INTEGER}, #{labIntroduce,jdbcType=VARCHAR}, #{labUsage,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="cn.charlesxu.LabManager.entity.Lab">
+        insert into t_lab
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="adminUserName != null">
+                admin_user_name,
+            </if>
+            <if test="labName != null">
+                lab_name,
+            </if>
+            <if test="labType != null">
+                lab_type,
+            </if>
+            <if test="labPeoCount != null">
+                lab_peo_count,
+            </if>
+            <if test="labBuild != null">
+                lab_build,
+            </if>
+            <if test="labNumber != null">
+                lab_number,
+            </if>
+            <if test="labIntroduce != null">
+                lab_introduce,
+            </if>
+            <if test="labUsage != null">
+                lab_usage,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="adminUserName != null">
+                #{adminUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="labName != null">
+                #{labName,jdbcType=VARCHAR},
+            </if>
+            <if test="labType != null">
+                #{labType,jdbcType=VARCHAR},
+            </if>
+            <if test="labPeoCount != null">
+                #{labPeoCount,jdbcType=INTEGER},
+            </if>
+            <if test="labBuild != null">
+                #{labBuild,jdbcType=INTEGER},
+            </if>
+            <if test="labNumber != null">
+                #{labNumber,jdbcType=INTEGER},
+            </if>
+            <if test="labIntroduce != null">
+                #{labIntroduce,jdbcType=VARCHAR},
+            </if>
+            <if test="labUsage != null">
+                #{labUsage,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.charlesxu.LabManager.entity.Lab">
+        update t_lab
+        <set>
+            <if test="adminUserName != null">
+                admin_user_name = #{adminUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="labName != null">
+                lab_name = #{labName,jdbcType=VARCHAR},
+            </if>
+            <if test="labType != null">
+                lab_type = #{labType,jdbcType=VARCHAR},
+            </if>
+            <if test="labPeoCount != null">
+                lab_peo_count = #{labPeoCount,jdbcType=INTEGER},
+            </if>
+            <if test="labBuild != null">
+                lab_build = #{labBuild,jdbcType=INTEGER},
+            </if>
+            <if test="labNumber != null">
+                lab_number = #{labNumber,jdbcType=INTEGER},
+            </if>
+            <if test="labIntroduce != null">
+                lab_introduce = #{labIntroduce,jdbcType=VARCHAR},
+            </if>
+            <if test="labUsage != null">
+                lab_usage = #{labUsage,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.charlesxu.LabManager.entity.Lab">
+        update t_lab
+        set admin_user_name = #{adminUserName,jdbcType=VARCHAR},
+            lab_name = #{labName,jdbcType=VARCHAR},
+            lab_type = #{labType,jdbcType=VARCHAR},
+            lab_peo_count = #{labPeoCount,jdbcType=INTEGER},
+            lab_build = #{labBuild,jdbcType=INTEGER},
+            lab_number = #{labNumber,jdbcType=INTEGER},
+            lab_introduce = #{labIntroduce,jdbcType=VARCHAR},
+            lab_usage = #{labUsage,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!--获得所有Lab的类型-->
+    <resultMap id="labType" type="java.lang.String">
+        <result column="lab_type" jdbcType="VARCHAR" property="labType"/>
+    </resultMap>
+
+    <select id="selectAllType" resultMap="labType">
+        SELECT DISTINCT lab_type
+        FROM t_lab
+    </select>
+
+
+    <!--根据username查所有Lab-->
+    <select id="selectByAdminUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_lab
+        WHERE admin_user_name = #{username}
+    </select>
+
+    <select id="selectByType" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_lab
+        WHERE lab_type = #{type,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectAllLab" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_lab
+    </select>
+
+    <select id="selectByTag" resultMap="BaseResultMap">
+        SELECT
+          <include refid="Base_Column_List"/>
+        FROM t_lab
+        WHERE id in(
+        select distinct lab_id from t_labtag where
+        <foreach collection="tag" separator="or" item="preItem" index="idx">
+            tag_id = #{preItem,jdbcType=INTEGER}
+        </foreach>
+        group by lab_id
+        having count(lab_id) = #{tagSize,jdbcType=INTEGER}
+        )
+    </select>
+
+</mapper>

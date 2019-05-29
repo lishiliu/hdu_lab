@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.json.js"></script>
+
+<!--
+
+<script>
+    function selectUser() {
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = () => {
+            if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                document.getElementById("test").innerHTML = xmlHttp.responseText;
+            }
+        };
+        xmlHttp.open("POST", "user/showUser", true);
+        xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlHttp.send("id=3");
+    }
+</script>
+
+<script>
+    function login() {
+        var jsonData = {
+            "userName" : "柠檬",
+            "password" : "123456"
+        };
+        $.ajax({
+            type:'post',
+            url:'user/login',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+<script>
+    function getLabByType() {
+        var jsonData = {
+            "username":"username",
+            "no":1,
+            "data":
+                {
+                    "course": ["101123123"],
+                    "week":
+                        [
+                            4,
+                            5
+                        ],
+                    "weekday":
+                        [
+                            4
+                        ],
+                    "classNum":
+                        [
+                            6,
+                            12
+                        ],
+                    "type":["软件实验室"]
+                }
+        };
+        $.ajax({
+            type:'post',
+            url:'lab/getLabByType',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+<script>
+    function addLab() {
+        var jsonData = {
+            "adminId":001,
+            "labName":"安卓综合开发实验室",
+            "labType":"安卓实验室",
+            "labPeoCount":120,
+            "labBuild":1,
+            "labNumber":101,
+            "labIntroduce":"这是安卓综合开发实验室的介绍"
+        };
+        $.ajax({
+            type:'post',
+            url:'lab/addLab',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+<script>
+    function updateLab() {
+        var jsonData = {
+            "adminId":001,
+            "labName":"安卓综合开发实验室1",
+            "labType":"安卓实验室",
+            "labPeoCount":130,
+            "labBuild":1,
+            "labNumber":101,
+            "labIntroduce":"这是安卓综合开发实验室的介绍"
+        };
+        $.ajax({
+            type:'post',
+            url:'lab/updateLab',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+<script>
+    function deleteLab() {
+        var jsonData = {
+            "id":5
+        };
+        $.ajax({
+            type:'post',
+            url:'lab/deleteLab',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+<script>
+    function getClassByUsername() {
+        var jsonData = {
+            "userName":"1"
+        };
+        $.ajax({
+            type:'post',
+            url:'class/getclassbyusername',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+<script>
+    function getCourseTableByUsername() {
+        var jsonData = {
+            "userName":"40392"
+        };
+        $.ajax({
+            type:'post',
+            url:'class/getCourseTableByUsername',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+<script>
+    function getCourseTableByLabId5() {
+        var jsonData = {
+            "labId":"5"
+        };
+        $.ajax({
+            type:'post',
+            url:'class/getCourseTableByLabId',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+<script>
+    function getCourseTableByLabId6() {
+        var jsonData = {
+            "labId":"6"
+        };
+        $.ajax({
+            type:'post',
+            url:'class/getCourseTableByLabId',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+
+
+
+
+</script>
+
+<script>
+    function getOrderById() {
+        var jsonData = {
+            "labId":6
+        };
+        $.ajax({
+            type:'post',
+            url:'order/getOrderById',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+<script>
+    function getOrderByUsername() {
+        var jsonData = {
+            "userName":"01234"
+        };
+        $.ajax({
+            type:'post',
+            url:'order/getOrderByUsername',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+<script>
+    function getOrderByLabId() {
+        var jsonData = {
+            "labId":321
+        };
+        $.ajax({
+            type:'post',
+            url:'order/getOrderByLabId',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+-->
+
+
+<body>
+<p id="test">Hello World!</p>
+
+<!--
+<button type="button" onclick="selectUser()">onclick test</button>
+<button type="button" onclick="login()">login</button><br>
+
+<button type="button" onclick="getLabByType()">getLabByType</button>
+<button type="button" onclick="addLab()">addLab</button>
+<button type="button" onclick="updateLab()">updateLab</button>
+<button type="button" onclick="deleteLab()">deleteLab</button><br>
+
+<button type="button" onclick="getClassByUsername()">getclass</button>
+<button type="button" onclick="getCourseTableByUsername()">getCourseTableByUsername</button>
+<button type="button" onclick="getCourseTableByLabId5()">getCourseTableByLabId5</button>
+<button type="button" onclick="getCourseTableByLabId6()">getCourseTableByLabId6</button>
+<br>
+
+<button type="button" onclick="addOrder()">addOrder</button>
+<button type="button" onclick="getOrderById()">getOrderById</button>
+<button type="button" onclick="getOrderByUsername()">getOrderByUsername</button>
+<button type="button" onclick="getOrderByLabId()">getOrderByLabId</button>
+
+
+<button type="button" onclick="autoArrangeByLabId()">autoArrangeByLabId</button>
+<script>
+    function autoArrangeByLabId() {
+        var jsonData = {
+            "labId":7,
+            "semester":"2017-2018-2"
+        };
+        $.ajax({
+            type:'post',
+            url:'order/semester/autoArrangeOrderByLabId',
+            contentType:'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data:JSON.stringify(jsonData),
+            success:function(data){//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+-->
+
+<button type="button" onclick="getCourseTableByLabId5()">getCourseTableByLabId5</button>
+
+
+<button type="button" onclick="getOrderByLabId()">getOrderByLabId</button>
+
+<button type="button" onclick="getClassByUsername()">getclass</button>
+
+<button type="button" onclick="getLabOrderStatus()">getLabOrderStatus</button>
+
+
+<script>
+    function getClassByUsername() {
+        var jsonData = {
+            "userName": "40392"
+        };
+        $.ajax({
+            type: 'post',
+            url: 'class/getclassByUsername',
+            contentType: 'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data: JSON.stringify(jsonData),
+            success: function (data) {//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+
+<script>
+    function getOrderByLabId() {
+        var jsonData = {
+            "labId": 6,
+            "semester":"2013-2014-2"
+        };
+        $.ajax({
+            type: 'post',
+            // url: 'order/getFinishedSimpleOrderListByLabId',
+            url: 'order/semester/getOrderByLabId',
+            contentType: 'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data: JSON.stringify(jsonData),
+            success: function (data) {//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+<script>
+    function getCourseTableByLabId5() {
+        var jsonData = {
+            "labId": "5"
+        };
+        $.ajax({
+            type: 'post',
+            url: 'class/getCourseTableByLabId',
+            contentType: 'application/json;charset=utf-8',//指定为json类型
+            //数据格式是json串，商品信息
+            data: JSON.stringify(jsonData),
+            success: function (data) {//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+<script>
+    function getLabOrderStatus() {
+        var jsonData = {
+            "labId": 6,
+            "week": [1, 2, 3],
+            "weekday": [1],
+            "classNum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        };
+        $.ajax({
+            type: 'post',
+            url: 'lab/getLabOrderStatus',
+            contentType: 'application/json;charset=utf-8',//指定为json类型
+            data: JSON.stringify(jsonData),
+            success: function (data) {//返回json结果
+                alert(data.name);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
