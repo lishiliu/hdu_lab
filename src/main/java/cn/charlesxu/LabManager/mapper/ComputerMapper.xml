@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.charlesxu.LabManager.mapper.ComputerMapper" >
+  <resultMap id="BaseResultMap" type="cn.charlesxu.LabManager.entity.Computer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="lab_id" property="labId" jdbcType="INTEGER" />
+    <result column="computer_ip" property="computerIp" jdbcType="VARCHAR" />
+    <result column="computer_num" property="computerNum" jdbcType="VARCHAR" />
+    <result column="software" property="software" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="system" property="system" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, lab_id, computer_ip, computer_num, software, type, system, status, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_computer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_computer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.charlesxu.LabManager.entity.Computer" >
+    insert into t_computer (id, lab_id, computer_ip, 
+      computer_num, software, type, 
+      system, status, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{labId,jdbcType=INTEGER}, #{computerIp,jdbcType=VARCHAR}, 
+      #{computerNum,jdbcType=VARCHAR}, #{software,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{system,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.charlesxu.LabManager.entity.Computer" >
+    insert into t_computer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="labId != null" >
+        lab_id,
+      </if>
+      <if test="computerIp != null" >
+        computer_ip,
+      </if>
+      <if test="computerNum != null" >
+        computer_num,
+      </if>
+      <if test="software != null" >
+        software,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="system != null" >
+        system,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="labId != null" >
+        #{labId,jdbcType=INTEGER},
+      </if>
+      <if test="computerIp != null" >
+        #{computerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="computerNum != null" >
+        #{computerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="software != null" >
+        #{software,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="system != null" >
+        #{system,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.charlesxu.LabManager.entity.Computer" >
+    update t_computer
+    <set >
+      <if test="labId != null" >
+        lab_id = #{labId,jdbcType=INTEGER},
+      </if>
+      <if test="computerIp != null" >
+        computer_ip = #{computerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="computerNum != null" >
+        computer_num = #{computerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="software != null" >
+        software = #{software,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="system != null" >
+        system = #{system,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.charlesxu.LabManager.entity.Computer" >
+    update t_computer
+    set lab_id = #{labId,jdbcType=INTEGER},
+      computer_ip = #{computerIp,jdbcType=VARCHAR},
+      computer_num = #{computerNum,jdbcType=VARCHAR},
+      software = #{software,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      system = #{system,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

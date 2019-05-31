@@ -3,6 +3,8 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
+    <classPathEntry
+            location="C:\Users\liyan\.m2\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar" />
     <context id="DB2Tables" targetRuntime="MyBatis3">
 
         <commentGenerator>
@@ -13,9 +15,9 @@
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://aliyun.charlesxu.cn:3306/LabManager_copy"
+                connectionURL="jdbc:mysql://localhost:3306/labmanager"
                 userId="root"
-                password="Xu5539,5783">
+                password="lyz15058215">
         </jdbcConnection>
 
         <javaTypeResolver>
@@ -40,8 +42,26 @@
         </javaClientGenerator>
 
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="t_lab"
-               domainObjectName="Lab12345"
+        <table tableName="t_student"
+               domainObjectName="Student"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+
+        <table tableName="t_student_sign"
+               domainObjectName="StudentSign"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+
+        <table tableName="t_computer"
+               domainObjectName="Computer"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

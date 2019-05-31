@@ -23,71 +23,6 @@
         <mysql-driver.version>5.1.39</mysql-driver.version>
     </properties>
 
-    <build>
-        <finalName>LabManager</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-        </resources>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.mybatis.generator</groupId>
-                    <artifactId>mybatis-generator-maven-plugin</artifactId>
-                    <version>${mybatis-generator.version}</version>
-                    <!-- 数据库驱动  -->
-                    <dependencies>
-                        <dependency>
-                            <groupId>mysql</groupId>
-                            <artifactId>mysql-connector-java</artifactId>
-                            <version>${mysql-driver.version}</version>
-                        </dependency>
-                    </dependencies>
-                    <!-- 自动生成 -->
-                    <executions>
-                        <execution>
-                            <id>Generate MyBatis Artifacts</id>
-                            <goals>
-                                <goal>generate</goal>
-                            </goals>
-                            <configuration>
-                                <!-- 指定文件位置好像不起作用，始终默认读取src/main/resources/generatorConfig.xml文件 -->
-                                <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
-                                <!--允许移动生成的文件-->
-                                <verbose>true</verbose>
-                                <!--允许覆盖生成的文件-->
-                                <overwrite>true</overwrite>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.5</source>
-                        <target>1.5</target>
-                        <encoding>UTF-8</encoding>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
-    </build>
-
     <dependencies>
         <!-- java ee -->
         <dependency>
@@ -208,4 +143,29 @@
         </dependency>
 
     </dependencies>
+    <build>
+        <finalName>LabManger</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <!--允许移动生成的文件-->
+                    <verbose>true</verbose>
+                    <!--允许覆盖生成的文件-->
+                    <overwrite>true</overwrite>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
