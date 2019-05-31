@@ -1,6 +1,8 @@
 package cn.charlesxu.LabManager.service.impl;
 
+import cn.charlesxu.LabManager.dao.QuartzTaskDao;
 import cn.charlesxu.LabManager.dao.SystemParameterDao;
+import cn.charlesxu.LabManager.entity.QuartzTask;
 import cn.charlesxu.LabManager.entity.Semester;
 import cn.charlesxu.LabManager.entity.SystemParameter;
 import cn.charlesxu.LabManager.service.Job.SetWeekToZERO;
@@ -13,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.ScheduledFuture;
 
@@ -36,6 +39,9 @@ public class SystemParameterServiceImpl implements SystemParameterService {
 
     @Autowired
     private QuartzManager quartzManager;
+
+    @Autowired
+    private QuartzTaskDao quartzTaskDao;
 
     @Bean
     public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
@@ -62,10 +68,19 @@ public class SystemParameterServiceImpl implements SystemParameterService {
             String CRON = "0 50 23 " + day + " " + month + " " + "? " + year + "-" + year;
             //System.out.println(CRON);
 
-            String JOB_NAME = "Week初始化";
+            String JOB_NAME = "Week初始化:" + getNowDateTime();
             String JOB_GROUP_NAME = "WeekToZERO_JOB_GROUP";
 
             quartzManager.addJob(SetWeekToZERO.class, JOB_NAME, JOB_GROUP_NAME, CRON);
+            QuartzTask quartzTask = new QuartzTask();
+            quartzTask.setCron(CRON);
+            quartzTask.setStatus(0);
+            quartzTask.setCreateTime(getNowDateTime());
+            quartzTask.setUpdateTime(getNowDateTime());
+            quartzTask.setClassName(SetWeekToZERO.class.getName());
+            quartzTask.setJobName(JOB_NAME);
+            quartzTask.setJobGroupName(JOB_GROUP_NAME);
+            quartzTaskDao.insertSelective(quartzTask);
 
         }
 
@@ -75,5 +90,8 @@ public class SystemParameterServiceImpl implements SystemParameterService {
     public SystemParameter getSystemParameter() {
         return systemParameterDao.select();
     }
-
+    public Date getNowDateTime() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.getTime();
+    }
 }
