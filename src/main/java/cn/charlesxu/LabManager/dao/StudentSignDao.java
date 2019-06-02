@@ -5,6 +5,7 @@ import cn.charlesxu.LabManager.entity.QuartzTask;
 import cn.charlesxu.LabManager.entity.StudentSign;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public interface StudentSignDao {
@@ -17,4 +18,12 @@ public interface StudentSignDao {
     int updateById(StudentSign record);
 
     ArrayList<StudentSign> selectByRequest(StudentSign request);
+
+    /**
+     * 批量插入
+     *
+     * @param studentSignList
+     * @return
+     */
+    int batchInsert(List<StudentSign> studentSignList);
 }

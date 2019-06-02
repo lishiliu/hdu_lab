@@ -21,4 +21,12 @@ public interface ComputerMapper {
     int updateByPrimaryKey(Computer record);
 
     ArrayList<Computer> selectByRequest(Computer request);
+
+    /**
+     * 批量插入
+     *
+     * @param computerList
+     * @return
+     */
+    int batchInsert(List<Computer> computerList);
 }

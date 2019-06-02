@@ -1,17 +1,16 @@
 package cn.charlesxu.LabManager.service;
 
-import cn.charlesxu.LabManager.entity.Class;
 import cn.charlesxu.LabManager.entity.Computer;
 
 import java.util.List;
 
 /**
- * Created by liyan on 2018/1/30.
+ * Created by liyan on 2019/1/30.
  */
 public interface ComputerService {
-    int addComputer(Computer computer);//添加设备
+    String addComputer(Computer computer);//添加设备
 
-    int updateComputer(Computer computer);//更新设备信息
+    String updateComputer(Computer computer);//更新设备信息
 
     int deleteComputer(Computer computer);//删除设备
 

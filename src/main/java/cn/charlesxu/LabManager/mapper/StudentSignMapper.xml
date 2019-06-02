@@ -1,185 +1,216 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.charlesxu.LabManager.mapper.StudentSignMapper" >
-  <resultMap id="BaseResultMap" type="cn.charlesxu.LabManager.entity.StudentSign" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="student_id" property="studentId" jdbcType="VARCHAR" />
-    <result column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
-    <result column="class_id" property="classId" jdbcType="VARCHAR" />
-    <result column="lab_id" property="labId" jdbcType="INTEGER" />
-    <result column="begin_year" property="beginYear" jdbcType="INTEGER" />
-    <result column="end_year" property="endYear" jdbcType="INTEGER" />
-    <result column="term" property="term" jdbcType="TINYINT" />
-    <result column="week" property="week" jdbcType="INTEGER" />
-    <result column="week_days" property="weekDays" jdbcType="TINYINT" />
-    <result column="class_num" property="classNum" jdbcType="VARCHAR" />
-    <result column="work_date" property="workDate" jdbcType="TIMESTAMP" />
-    <result column="computer_no" property="computerNo" jdbcType="VARCHAR" />
-    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.charlesxu.LabManager.mapper.StudentSignMapper">
+  <resultMap id="BaseResultMap" type="cn.charlesxu.LabManager.entity.StudentSign">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+    <result column="teacher_id" jdbcType="VARCHAR" property="teacherId" />
+    <result column="class_id" jdbcType="VARCHAR" property="classId" />
+    <result column="lab_id" jdbcType="INTEGER" property="labId" />
+    <result column="begin_year" jdbcType="INTEGER" property="beginYear" />
+    <result column="end_year" jdbcType="INTEGER" property="endYear" />
+    <result column="term" jdbcType="INTEGER" property="term" />
+    <result column="week" jdbcType="INTEGER" property="week" />
+    <result column="week_days" jdbcType="INTEGER" property="weekDays" />
+    <result column="class_num" jdbcType="VARCHAR" property="classNum" />
+    <result column="work_date" jdbcType="TIMESTAMP" property="workDate" />
+    <result column="computer_no" jdbcType="VARCHAR" property="computerNo" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, student_id, teacher_id, class_id, lab_id, begin_year, end_year, term, week, week_days, 
-    class_num, work_date, computer_no, create_date
+    class_num, work_date, computer_no, status, create_date
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_student_sign
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_student_sign
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.charlesxu.LabManager.entity.StudentSign" >
+  <insert id="insert" parameterType="cn.charlesxu.LabManager.entity.StudentSign">
     insert into t_student_sign (id, student_id, teacher_id, 
       class_id, lab_id, begin_year, 
       end_year, term, week, 
       week_days, class_num, work_date, 
-      computer_no, create_date)
+      computer_no, status, create_date
+      )
     values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, #{teacherId,jdbcType=VARCHAR}, 
       #{classId,jdbcType=VARCHAR}, #{labId,jdbcType=INTEGER}, #{beginYear,jdbcType=INTEGER}, 
-      #{endYear,jdbcType=INTEGER}, #{term,jdbcType=TINYINT}, #{week,jdbcType=INTEGER}, 
-      #{weekDays,jdbcType=TINYINT}, #{classNum,jdbcType=VARCHAR}, #{workDate,jdbcType=TIMESTAMP}, 
-      #{computerNo,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+      #{endYear,jdbcType=INTEGER}, #{term,jdbcType=INTEGER}, #{week,jdbcType=INTEGER},
+      #{weekDays,jdbcType=INTEGER}, #{classNum,jdbcType=VARCHAR}, #{workDate,jdbcType=TIMESTAMP},
+      #{computerNo,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="cn.charlesxu.LabManager.entity.StudentSign" >
+
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into t_student_sign (id, student_id, teacher_id,
+    class_id, lab_id, begin_year,
+    end_year, term, week,
+    week_days, class_num, work_date,
+    computer_no, status, create_date
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=VARCHAR}, #{item.teacherId,jdbcType=VARCHAR},
+      #{item.classId,jdbcType=VARCHAR}, #{item.labId,jdbcType=INTEGER}, #{item.beginYear,jdbcType=INTEGER},
+      #{item.endYear,jdbcType=INTEGER}, #{item.term,jdbcType=INTEGER}, #{item.week,jdbcType=INTEGER},
+      #{item.weekDays,jdbcType=INTEGER}, #{item.classNum,jdbcType=VARCHAR}, #{item.workDate,jdbcType=TIMESTAMP},
+      #{item.computerNo,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER}, #{item.createDate,jdbcType=TIMESTAMP}
+      )
+    </foreach>
+  </insert>
+
+  <insert id="insertSelective" parameterType="cn.charlesxu.LabManager.entity.StudentSign">
     insert into t_student_sign
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="studentId != null" >
+      <if test="studentId != null">
         student_id,
       </if>
-      <if test="teacherId != null" >
+      <if test="teacherId != null">
         teacher_id,
       </if>
-      <if test="classId != null" >
+      <if test="classId != null">
         class_id,
       </if>
-      <if test="labId != null" >
+      <if test="labId != null">
         lab_id,
       </if>
-      <if test="beginYear != null" >
+      <if test="beginYear != null">
         begin_year,
       </if>
-      <if test="endYear != null" >
+      <if test="endYear != null">
         end_year,
       </if>
-      <if test="term != null" >
+      <if test="term != null">
         term,
       </if>
-      <if test="week != null" >
+      <if test="week != null">
         week,
       </if>
-      <if test="weekDays != null" >
+      <if test="weekDays != null">
         week_days,
       </if>
-      <if test="classNum != null" >
+      <if test="classNum != null">
         class_num,
       </if>
-      <if test="workDate != null" >
+      <if test="workDate != null">
         work_date,
       </if>
-      <if test="computerNo != null" >
+      <if test="computerNo != null">
         computer_no,
       </if>
-      <if test="createDate != null" >
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createDate != null">
         create_date,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="studentId != null" >
+      <if test="studentId != null">
         #{studentId,jdbcType=VARCHAR},
       </if>
-      <if test="teacherId != null" >
+      <if test="teacherId != null">
         #{teacherId,jdbcType=VARCHAR},
       </if>
-      <if test="classId != null" >
+      <if test="classId != null">
         #{classId,jdbcType=VARCHAR},
       </if>
-      <if test="labId != null" >
+      <if test="labId != null">
         #{labId,jdbcType=INTEGER},
       </if>
-      <if test="beginYear != null" >
+      <if test="beginYear != null">
         #{beginYear,jdbcType=INTEGER},
       </if>
-      <if test="endYear != null" >
+      <if test="endYear != null">
         #{endYear,jdbcType=INTEGER},
       </if>
-      <if test="term != null" >
-        #{term,jdbcType=TINYINT},
+      <if test="term != null">
+        #{term,jdbcType=INTEGER},
       </if>
-      <if test="week != null" >
+      <if test="week != null">
         #{week,jdbcType=INTEGER},
       </if>
-      <if test="weekDays != null" >
-        #{weekDays,jdbcType=TINYINT},
+      <if test="weekDays != null">
+        #{weekDays,jdbcType=INTEGER},
       </if>
-      <if test="classNum != null" >
+      <if test="classNum != null">
         #{classNum,jdbcType=VARCHAR},
       </if>
-      <if test="workDate != null" >
+      <if test="workDate != null">
         #{workDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="computerNo != null" >
+      <if test="computerNo != null">
         #{computerNo,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null" >
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.charlesxu.LabManager.entity.StudentSign" >
+  <update id="updateByPrimaryKeySelective" parameterType="cn.charlesxu.LabManager.entity.StudentSign">
     update t_student_sign
-    <set >
-      <if test="studentId != null" >
+    <set>
+      <if test="studentId != null">
         student_id = #{studentId,jdbcType=VARCHAR},
       </if>
-      <if test="teacherId != null" >
+      <if test="teacherId != null">
         teacher_id = #{teacherId,jdbcType=VARCHAR},
       </if>
-      <if test="classId != null" >
+      <if test="classId != null">
         class_id = #{classId,jdbcType=VARCHAR},
       </if>
-      <if test="labId != null" >
+      <if test="labId != null">
         lab_id = #{labId,jdbcType=INTEGER},
       </if>
-      <if test="beginYear != null" >
+      <if test="beginYear != null">
         begin_year = #{beginYear,jdbcType=INTEGER},
       </if>
-      <if test="endYear != null" >
+      <if test="endYear != null">
         end_year = #{endYear,jdbcType=INTEGER},
       </if>
-      <if test="term != null" >
-        term = #{term,jdbcType=TINYINT},
+      <if test="term != null">
+        term = #{term,jdbcType=INTEGER},
       </if>
-      <if test="week != null" >
+      <if test="week != null">
         week = #{week,jdbcType=INTEGER},
       </if>
-      <if test="weekDays != null" >
-        week_days = #{weekDays,jdbcType=TINYINT},
+      <if test="weekDays != null">
+        week_days = #{weekDays,jdbcType=INTEGER},
       </if>
-      <if test="classNum != null" >
+      <if test="classNum != null">
         class_num = #{classNum,jdbcType=VARCHAR},
       </if>
-      <if test="workDate != null" >
+      <if test="workDate != null">
         work_date = #{workDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="computerNo != null" >
+      <if test="computerNo != null">
         computer_no = #{computerNo,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null" >
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.charlesxu.LabManager.entity.StudentSign" >
+  <update id="updateByPrimaryKey" parameterType="cn.charlesxu.LabManager.entity.StudentSign">
     update t_student_sign
     set student_id = #{studentId,jdbcType=VARCHAR},
       teacher_id = #{teacherId,jdbcType=VARCHAR},
@@ -187,12 +218,13 @@
       lab_id = #{labId,jdbcType=INTEGER},
       begin_year = #{beginYear,jdbcType=INTEGER},
       end_year = #{endYear,jdbcType=INTEGER},
-      term = #{term,jdbcType=TINYINT},
+      term = #{term,jdbcType=INTEGER},
       week = #{week,jdbcType=INTEGER},
-      week_days = #{weekDays,jdbcType=TINYINT},
+      week_days = #{weekDays,jdbcType=INTEGER},
       class_num = #{classNum,jdbcType=VARCHAR},
       work_date = #{workDate,jdbcType=TIMESTAMP},
       computer_no = #{computerNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
       create_date = #{createDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

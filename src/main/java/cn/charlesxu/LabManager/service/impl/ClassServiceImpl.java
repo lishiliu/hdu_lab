@@ -10,6 +10,7 @@ import cn.charlesxu.LabManager.service.SemesterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,28 @@ public class ClassServiceImpl implements ClassService {
         SystemParameter systemParameter = systemParameterDao.select();
         Semester semester = semesterService.getSemesterById(systemParameter.getThisSemesterId());
         return classDao.selectByUserNameAndSemester(UserName, semester.getSemesterString());
+    }
+
+    @Override
+    public List<Class> selectClassByUsernameAndWeek(String username) {
+        SystemParameter systemParameter = systemParameterDao.select();
+        Semester semester = semesterService.getSemesterById(systemParameter.getThisSemesterId());
+        List<Class> classList= classDao.selectByUserNameAndSemester(username, semester.getSemesterString());
+        List<Class> resultList=new ArrayList<>();
+        for(Class course:classList){
+            if(course.getClassWeek().contains(systemParameter.getThisWeek())){
+                resultList.add(course);
+            }
+        }
+        return resultList;
+    }
+
+    @Override
+    public List<Class> selectClassByStudentId(String studentId) {
+        SystemParameter systemParameter = systemParameterDao.select();
+        Semester semester = semesterService.getSemesterById(systemParameter.getThisSemesterId());
+        List<Class> classList=classDao.selectByStudentId(studentId,semester.getSemesterString());
+        return null;
     }
 
     public List<Class> selectClassByUsernameAndSemester(String UserName, String semester) {

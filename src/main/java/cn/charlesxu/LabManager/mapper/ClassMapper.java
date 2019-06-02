@@ -18,6 +18,10 @@ public interface ClassMapper {
 
     List<Class> selectByUserName(String userName);
 
+    List<Class> selectByStudentId(@Param("studentId") String studentId, @Param("semester") String semester);
+
+    List<Class> selectByStudentSignClassId(@Param("semester")String semester);
+
     List<Class> selectByUserNameAndSemester(@Param("userName") String userName, @Param("semester") String semester);
 
     int updateByPrimaryKeySelective(Class course);

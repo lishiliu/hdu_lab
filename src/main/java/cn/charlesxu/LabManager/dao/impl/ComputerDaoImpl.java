@@ -12,12 +12,13 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by liyan on 2019/5/31.
  */
 @Repository
-public class ComputerImpl implements ComputerDao{
+public class ComputerDaoImpl implements ComputerDao{
     @Autowired
     private ComputerMapper computerMapper;
 
@@ -47,6 +48,11 @@ public class ComputerImpl implements ComputerDao{
     @Override
     public ArrayList<Computer> selectByRequest(Computer request) {
         return computerMapper.selectByRequest(request);
+    }
+
+    @Override
+    public int batchInsert(List<Computer> computerList) {
+        return computerMapper.batchInsert(computerList);
     }
 
     public Date getNowDateTime() {

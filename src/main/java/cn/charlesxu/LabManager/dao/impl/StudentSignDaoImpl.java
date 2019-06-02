@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by liyan on 2019/5/31.
@@ -45,6 +46,11 @@ public class StudentSignDaoImpl implements StudentSignDao{
     @Override
     public ArrayList<StudentSign> selectByRequest(StudentSign request) {
         return studentSignMapper.selectByRequest(request);
+    }
+
+    @Override
+    public int batchInsert(List<StudentSign> studentSignList) {
+        return studentSignMapper.batchInsert(studentSignList);
     }
 
     public Date getNowDateTime() {

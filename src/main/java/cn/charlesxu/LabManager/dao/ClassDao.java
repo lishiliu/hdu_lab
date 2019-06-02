@@ -16,6 +16,10 @@ public interface ClassDao {
 
     List<Class> selectByUserName(String userName);
 
+    List<Class> selectByStudentId(String studentId, String semester);
+
+    List<Class> selectByStudentSignClassId(String semester);
+
     List<Class> selectByUserNameAndSemester(String userName, String semester);
 
     int updateById(Class record);

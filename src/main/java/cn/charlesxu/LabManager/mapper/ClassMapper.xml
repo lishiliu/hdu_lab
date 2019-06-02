@@ -140,4 +140,19 @@
         where user_name = #{userName,jdbcType=VARCHAR} AND class_id like #{semester}
     </select>
 
+    <select id="selectByStudentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        tc.id, tc.class_id, tc.class_name, tc.class_peo_count, tc.user_name, tc.class_week_string, tc.week_days_string, tc.class_num_string
+        from t_class as tc JOIN  t_studnet_sign as tss
+        where  tc.class_id=tss.class_id AND tss.student_id = #{student,jdbcType=VARCHAR} AND tc.class_id like #{semester}
+    </select>
+
+    <select id="selectByStudentSignClassId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        tc.id, tc.class_id, tc.class_name, tc.class_peo_count, tc.user_name, tc.class_week_string, tc.week_days_string, tc.class_num_string
+        from t_class as tc JOIN  t_studnet_sign as tss
+        where  tc.class_id=tss.class_id AND tc.class_id like #{semester}
+    </select>
+
+
 </mapper>

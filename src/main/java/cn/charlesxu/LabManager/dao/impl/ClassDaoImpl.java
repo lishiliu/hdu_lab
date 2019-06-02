@@ -50,6 +50,25 @@ public class ClassDaoImpl implements ClassDao {
         return classList;
     }
 
+    public List<Class> selectByStudentId(String studentId, String semester) {
+        semester = "_" + semester + "%";
+        List<Class> classList = classMapper.selectByStudentId(studentId, semester);
+        for (int i = 0; i < classList.size(); i++) {
+            stringToList(classList.get(i));
+        }
+        return classList;
+    }
+
+    @Override
+    public List<Class> selectByStudentSignClassId(String semester) {
+        semester = "_" + semester + "%";
+        List<Class> classList = classMapper.selectByStudentSignClassId(semester);
+        for (int i = 0; i < classList.size(); i++) {
+            stringToList(classList.get(i));
+        }
+        return classList;
+    }
+
     public int updateById(Class course) {
         listToString(course);
         return classMapper.updateByPrimaryKeySelective(course);

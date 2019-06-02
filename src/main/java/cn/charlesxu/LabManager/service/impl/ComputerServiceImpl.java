@@ -1,0 +1,76 @@
+package cn.charlesxu.LabManager.service.impl;
+
+import cn.charlesxu.LabManager.dao.ComputerDao;
+import cn.charlesxu.LabManager.entity.Computer;
+import cn.charlesxu.LabManager.service.ComputerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * Created by liyan on 2019/6/2.
+ */
+@Service
+public class ComputerServiceImpl implements ComputerService {
+    @Autowired
+    ComputerDao computerDao;
+
+    @Override
+    public String addComputer(Computer computer) {
+        Computer request=new Computer();
+        request.setComputerIp(computer.getComputerIp());
+        List<Computer> computerList=computerDao.selectByRequest(request);
+        String msg="";
+        if(computerList!=null){
+            msg="IP已存在！";
+        }else{
+            computerDao.insertSelective(computer);
+            msg="插入成功！";
+        }
+        return msg;
+    }
+
+    @Override
+    public String updateComputer(Computer computer) {
+        int flag=0;
+        String msg="";
+        if(computer.getComputerIp()!=null){
+            Computer request=new Computer();
+            request.setComputerIp(computer.getComputerIp());
+            List<Computer> computerList=computerDao.selectByRequest(request);
+            if(computerList!=null&&computerList.size()>=2){
+                msg="IP已存在！";
+            }else{
+                flag=1;
+            }
+        }else{
+            flag=1;
+        }
+       if(flag==1){
+           computerDao.updateById(computer);
+           msg="修改成功！";
+       }
+        return msg;
+    }
+
+    @Override
+    public int deleteComputer(Computer computer) {
+        return computerDao.deleteById(computer.getId());
+    }
+
+    @Override
+    public List<Computer> selectComputerByLabId(Integer labId) {
+        Computer computer=new Computer();
+        computer.setLabId(labId);
+        return computerDao.selectByRequest(computer);
+    }
+
+    @Override
+    public String selectNumByIp(String computerIp) {
+        Computer computer=new Computer();
+        computer.setComputerIp(computerIp);
+        List<Computer> computerList=computerDao.selectByRequest(computer);
+        return computerList.get(0).getComputerNum();
+    }
+}

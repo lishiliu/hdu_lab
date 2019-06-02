@@ -5,6 +5,7 @@ import cn.charlesxu.LabManager.entity.Computer;
 import cn.charlesxu.LabManager.entity.QuartzTask;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public interface ComputerDao {
@@ -17,4 +18,12 @@ public interface ComputerDao {
     int updateById(Computer record);
 
     ArrayList<Computer> selectByRequest(Computer request);
+
+    /**
+     * 批量插入
+     *
+     * @param computerList
+     * @return
+     */
+    int batchInsert(List<Computer> computerList);
 }

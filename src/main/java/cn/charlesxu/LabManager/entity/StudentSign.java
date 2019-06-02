@@ -17,17 +17,19 @@ public class StudentSign {
 
     private Integer endYear;
 
-    private Byte term;
+    private Integer term;
 
     private Integer week;
 
-    private Byte weekDays;
+    private Integer weekDays;
 
     private String classNum;
 
     private Date workDate;
 
     private String computerNo;
+
+    private Integer status;
 
     private Date createDate;
 
@@ -44,7 +46,7 @@ public class StudentSign {
     }
 
     public void setStudentId(String studentId) {
-        this.studentId = studentId == null ? null : studentId.trim();
+        this.studentId = studentId;
     }
 
     public String getTeacherId() {
@@ -52,7 +54,7 @@ public class StudentSign {
     }
 
     public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId == null ? null : teacherId.trim();
+        this.teacherId = teacherId;
     }
 
     public String getClassId() {
@@ -60,7 +62,7 @@ public class StudentSign {
     }
 
     public void setClassId(String classId) {
-        this.classId = classId == null ? null : classId.trim();
+        this.classId = classId;
     }
 
     public Integer getLabId() {
@@ -87,11 +89,11 @@ public class StudentSign {
         this.endYear = endYear;
     }
 
-    public Byte getTerm() {
+    public Integer getTerm() {
         return term;
     }
 
-    public void setTerm(Byte term) {
+    public void setTerm(Integer term) {
         this.term = term;
     }
 
@@ -103,11 +105,11 @@ public class StudentSign {
         this.week = week;
     }
 
-    public Byte getWeekDays() {
+    public Integer getWeekDays() {
         return weekDays;
     }
 
-    public void setWeekDays(Byte weekDays) {
+    public void setWeekDays(Integer weekDays) {
         this.weekDays = weekDays;
     }
 
@@ -116,7 +118,7 @@ public class StudentSign {
     }
 
     public void setClassNum(String classNum) {
-        this.classNum = classNum == null ? null : classNum.trim();
+        this.classNum = classNum;
     }
 
     public Date getWorkDate() {
@@ -132,7 +134,15 @@ public class StudentSign {
     }
 
     public void setComputerNo(String computerNo) {
-        this.computerNo = computerNo == null ? null : computerNo.trim();
+        this.computerNo = computerNo;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateDate() {
@@ -159,6 +169,7 @@ public class StudentSign {
                 ", classNum='" + classNum + '\'' +
                 ", workDate=" + workDate +
                 ", computerNo='" + computerNo + '\'' +
+                ", status=" + status +
                 ", createDate=" + createDate +
                 '}';
     }

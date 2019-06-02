@@ -4,6 +4,7 @@ import cn.charlesxu.LabManager.entity.StudentSign;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public interface StudentSignMapper {
@@ -20,4 +21,13 @@ public interface StudentSignMapper {
     int updateByPrimaryKey(StudentSign record);
 
     ArrayList<StudentSign> selectByRequest(StudentSign request);
+
+
+    /**
+     * 批量插入
+     *
+     * @param studentSignList
+     * @return
+     */
+    int batchInsert(List<StudentSign> studentSignList);
 }
