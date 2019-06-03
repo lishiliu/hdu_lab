@@ -11,6 +11,8 @@ public class Student {
 
     private String classNo;
 
+    private String majorIn;
+
     private String college;
 
     private String gradeNo;
@@ -21,7 +23,7 @@ public class Student {
 
     private String password;
 
-    private Byte status;
+    private Integer status;
 
     private Date regTime;
 
@@ -40,7 +42,7 @@ public class Student {
     }
 
     public void setStudentId(String studentId) {
-        this.studentId = studentId == null ? null : studentId.trim();
+        this.studentId = studentId;
     }
 
     public String getStudentName() {
@@ -48,7 +50,7 @@ public class Student {
     }
 
     public void setStudentName(String studentName) {
-        this.studentName = studentName == null ? null : studentName.trim();
+        this.studentName = studentName;
     }
 
     public String getClassNo() {
@@ -56,7 +58,15 @@ public class Student {
     }
 
     public void setClassNo(String classNo) {
-        this.classNo = classNo == null ? null : classNo.trim();
+        this.classNo = classNo;
+    }
+
+    public String getMajorIn() {
+        return majorIn;
+    }
+
+    public void setMajorIn(String majorIn) {
+        this.majorIn = majorIn;
     }
 
     public String getCollege() {
@@ -64,7 +74,7 @@ public class Student {
     }
 
     public void setCollege(String college) {
-        this.college = college == null ? null : college.trim();
+        this.college = college;
     }
 
     public String getGradeNo() {
@@ -72,7 +82,7 @@ public class Student {
     }
 
     public void setGradeNo(String gradeNo) {
-        this.gradeNo = gradeNo == null ? null : gradeNo.trim();
+        this.gradeNo = gradeNo;
     }
 
     public String getEmail() {
@@ -80,7 +90,7 @@ public class Student {
     }
 
     public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+        this.email = email;
     }
 
     public String getPhone() {
@@ -88,7 +98,7 @@ public class Student {
     }
 
     public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+        this.phone = phone;
     }
 
     public String getPassword() {
@@ -96,14 +106,14 @@ public class Student {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -120,7 +130,7 @@ public class Student {
     }
 
     public void setRegIp(String regIp) {
-        this.regIp = regIp == null ? null : regIp.trim();
+        this.regIp = regIp;
     }
 
     @Override
@@ -130,6 +140,7 @@ public class Student {
                 ", studentId='" + studentId + '\'' +
                 ", studentName='" + studentName + '\'' +
                 ", classNo='" + classNo + '\'' +
+                ", majorIn='" + majorIn + '\'' +
                 ", college='" + college + '\'' +
                 ", gradeNo='" + gradeNo + '\'' +
                 ", email='" + email + '\'' +

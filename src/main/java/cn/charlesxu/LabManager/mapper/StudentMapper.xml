@@ -6,17 +6,18 @@
     <result column="student_id" property="studentId" jdbcType="VARCHAR" />
     <result column="student_name" property="studentName" jdbcType="VARCHAR" />
     <result column="class_no" property="classNo" jdbcType="VARCHAR" />
+    <result column="major_in" property="majorIn" jdbcType="VARCHAR" />
     <result column="college" property="college" jdbcType="VARCHAR" />
     <result column="grade_no" property="gradeNo" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="reg_time" property="regTime" jdbcType="TIMESTAMP" />
     <result column="reg_ip" property="regIp" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, student_id, student_name, class_no, college, grade_no, email, phone, password, 
+    id, student_id, student_name, class_no, major_in,college, grade_no, email, phone, password,
     status, reg_time, reg_ip
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -31,14 +32,14 @@
   </delete>
   <insert id="insert" parameterType="cn.charlesxu.LabManager.entity.Student" >
     insert into t_student (id, student_id, student_name, 
-      class_no, college, grade_no, 
+      class_no, major_in,college, grade_no,
       email, phone, password, 
       status, reg_time, reg_ip
       )
     values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, 
-      #{classNo,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, #{gradeNo,jdbcType=VARCHAR}, 
+      #{classNo,jdbcType=VARCHAR},  #{majorIn,jdbcType=VARCHAR},#{college,jdbcType=VARCHAR}, #{gradeNo,jdbcType=VARCHAR},
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{regTime,jdbcType=TIMESTAMP}, #{regIp,jdbcType=VARCHAR}
+      #{status,jdbcType=INTEGER}, #{regTime,jdbcType=TIMESTAMP}, #{regIp,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.charlesxu.LabManager.entity.Student" >
@@ -55,6 +56,9 @@
       </if>
       <if test="classNo != null" >
         class_no,
+      </if>
+      <if test="majorIn != null" >
+        major_in,
       </if>
       <if test="college != null" >
         college,
@@ -94,6 +98,9 @@
       <if test="classNo != null" >
         #{classNo,jdbcType=VARCHAR},
       </if>
+      <if test="majorIn != null" >
+        #{majorIn,jdbcType=VARCHAR},
+      </if>
       <if test="college != null" >
         #{college,jdbcType=VARCHAR},
       </if>
@@ -110,7 +117,7 @@
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="regTime != null" >
         #{regTime,jdbcType=TIMESTAMP},
@@ -132,6 +139,9 @@
       <if test="classNo != null" >
         class_no = #{classNo,jdbcType=VARCHAR},
       </if>
+      <if test="majorIn != null" >
+        major_in = #{majorIn,jdbcType=VARCHAR},
+      </if>
       <if test="college != null" >
         college = #{college,jdbcType=VARCHAR},
       </if>
@@ -148,7 +158,7 @@
         password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=TINYINT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="regTime != null" >
         reg_time = #{regTime,jdbcType=TIMESTAMP},
@@ -164,14 +174,63 @@
     set student_id = #{studentId,jdbcType=VARCHAR},
       student_name = #{studentName,jdbcType=VARCHAR},
       class_no = #{classNo,jdbcType=VARCHAR},
+      major_in = #{majorIn,jdbcType=VARCHAR},
       college = #{college,jdbcType=VARCHAR},
       grade_no = #{gradeNo,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
+      status = #{status,jdbcType=INTEGER},
       reg_time = #{regTime,jdbcType=TIMESTAMP},
       reg_ip = #{regIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByRequest" resultMap="BaseResultMap" parameterType="cn.charlesxu.LabManager.entity.Student">
+    select
+    <include refid="Base_Column_List"/>
+    from t_student
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="studentId != null">
+        AND student_id = #{studentId,jdbcType=VARCHAR}
+      </if>
+      <if test="studentName != null">
+        AND student_name = #{studentName,jdbcType=VARCHAR}
+      </if>
+      <if test="classNo != null">
+        AND class_no = #{classNo,jdbcType=VARCHAR}
+      </if>
+      <if test="majorIn != null">
+        AND major_in = #{majorIn,jdbcType=VARCHAR}
+      </if>
+      <if test="college != null">
+        AND college = #{college,jdbcType=VARCHAR}
+      </if>
+      <if test="gradeNo != null">
+        AND grade_no = #{gradeNo,jdbcType=VARCHAR}
+      </if>
+      <if test="email != null">
+        AND email = #{email,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null">
+        AND phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null">
+        AND password = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null">
+        AND status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="regTime != null">
+        AND reg_time = #{regTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="regIp != null">
+        AND reg_ip = #{regIp,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+
 </mapper>

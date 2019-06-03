@@ -17,7 +17,7 @@ public class Computer {
 
     private String system;
 
-    private Byte status;
+    private Integer status;
 
     private Date createTime;
 
@@ -44,7 +44,7 @@ public class Computer {
     }
 
     public void setComputerIp(String computerIp) {
-        this.computerIp = computerIp == null ? null : computerIp.trim();
+        this.computerIp = computerIp;
     }
 
     public String getComputerNum() {
@@ -52,7 +52,7 @@ public class Computer {
     }
 
     public void setComputerNum(String computerNum) {
-        this.computerNum = computerNum == null ? null : computerNum.trim();
+        this.computerNum = computerNum;
     }
 
     public String getSoftware() {
@@ -60,7 +60,7 @@ public class Computer {
     }
 
     public void setSoftware(String software) {
-        this.software = software == null ? null : software.trim();
+        this.software = software;
     }
 
     public String getType() {
@@ -68,7 +68,7 @@ public class Computer {
     }
 
     public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+        this.type = type;
     }
 
     public String getSystem() {
@@ -76,14 +76,14 @@ public class Computer {
     }
 
     public void setSystem(String system) {
-        this.system = system == null ? null : system.trim();
+        this.system = system;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
