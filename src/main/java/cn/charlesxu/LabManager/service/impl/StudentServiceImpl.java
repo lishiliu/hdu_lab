@@ -4,12 +4,14 @@ import cn.charlesxu.LabManager.dao.StudentDao;
 import cn.charlesxu.LabManager.entity.Student;
 import cn.charlesxu.LabManager.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by liyan on 2019/6/2.
  */
+@Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
     StudentDao studentDao;

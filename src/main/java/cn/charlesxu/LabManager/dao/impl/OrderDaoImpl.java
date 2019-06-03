@@ -148,6 +148,11 @@ public class OrderDaoImpl implements OrderDao {
         if (order.getRequireTag() != null) {
             order.setRequireTagString(StringUtils.collectionToDelimitedString(order.getRequireTag(), ","));
         }
+        if (order.getClassId() != null) {
+            String[] arr = order.getClassId().split("-");
+            order.setMainClassId(arr[3]);
+            order.setMainClassOrder(Integer.valueOf(arr[5]));
+        }
         for (OrderDetail orderDetail : order.getOrderDetails()) {
             orderDetailDao.listToString(orderDetail);
         }
