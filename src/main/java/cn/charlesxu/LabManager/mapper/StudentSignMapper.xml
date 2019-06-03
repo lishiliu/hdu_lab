@@ -228,4 +228,12 @@
       create_date = #{createDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="updateStatusByClassIdAndWeekAndTeacher" parameterType="cn.charlesxu.LabManager.entity.StudentSign">
+    update t_student_sign
+    set
+    status = #{status,jdbcType=INTEGER}
+    where class_id= #{classId,jdbcType=VARCHAR} AND teacher_id= #{teacherId,jdbcType=VARCHAR} AND week= #{week,jdbcType=INTEGER}
+  </update>
+
 </mapper>

@@ -26,4 +26,6 @@ public interface StudentSignDao {
      * @return
      */
     int batchInsert(List<StudentSign> studentSignList);
+
+    int updateStatusByClassIdAndWeekAndTeacher(StudentSign record);
 }

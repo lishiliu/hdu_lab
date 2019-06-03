@@ -59,6 +59,9 @@ public class AddWeek {
                                studentSign.setWorkDate(null);
                                studentSign.setCreateDate(getNowDateTime());
                                studentSign.setWeek(thisWeek);
+                               studentSign.setBeginYear(semester.getBeginYear());
+                               studentSign.setEndYear(semester.getEndYear());
+                               studentSign.setTerm(semester.getTerm());
                                insertList.add(studentSign);
                            }
                        }

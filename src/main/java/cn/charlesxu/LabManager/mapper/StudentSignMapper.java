@@ -30,4 +30,6 @@ public interface StudentSignMapper {
      * @return
      */
     int batchInsert(List<StudentSign> studentSignList);
+
+    int updateStatusByClassIdAndWeekAndTeacher(StudentSign record);
 }

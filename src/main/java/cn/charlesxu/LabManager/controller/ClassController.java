@@ -92,6 +92,17 @@ public class ClassController {
         return modelMap;
     }
 
+    @RequestMapping(value = "/semester/getThisWeekClassByUsername", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> getThisWeekClassByUsername(@RequestBody Map<String, Object> map) {
+        List<Class> classList1 = classService.selectClassByUsernameAndWeek(map.get("userName").toString());
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        //暂时认为都是success的
+        modelMap.put("result", "success");
+        modelMap.put("course", classList1);
+        return modelMap;
+    }
+
     @RequestMapping(value = "/getCourseTableByUsername", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> getCourseTableByUsername(@RequestBody Map<String, Object> map) {

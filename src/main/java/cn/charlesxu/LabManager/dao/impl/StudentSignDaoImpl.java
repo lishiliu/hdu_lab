@@ -53,6 +53,11 @@ public class StudentSignDaoImpl implements StudentSignDao{
         return studentSignMapper.batchInsert(studentSignList);
     }
 
+    @Override
+    public int updateStatusByClassIdAndWeekAndTeacher(StudentSign record) {
+        return studentSignMapper.updateStatusByClassIdAndWeekAndTeacher(record);
+    }
+
     public Date getNowDateTime() {
         Calendar calendar = Calendar.getInstance();
         return calendar.getTime();
