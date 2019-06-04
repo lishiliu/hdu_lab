@@ -134,8 +134,15 @@ public class StudentSignController {
 
     @RequestMapping(value = "/addStudentSign", method = RequestMethod.POST)
     public @ResponseBody
-    Map<String, Object> addStudentSign(@RequestBody StudentSign studentSign) {
+    Map<String, Object> addStudentSign(@RequestBody Map<String, Object> map) {
+        StudentSign studentSign=new StudentSign();
+        studentSign.setStudentId(map.get("studentId").toString());
+        studentSign.setClassId(map.get("classId").toString());
+        studentSign.setComputerNo(map.get("computerNo").toString());
+        Integer labId = new Integer(map.get("labId").toString());
+        studentSign.setLabId(labId);
         SystemParameter systemParameter=systemParameterService.getSystemParameter();
+        studentSign.setWeek(systemParameter.getThisWeek());
         int result=studentSignService.signIn(studentSign);
         Map<String, Object> modelMap = new HashMap<String, Object>();
         if (result > 0) {

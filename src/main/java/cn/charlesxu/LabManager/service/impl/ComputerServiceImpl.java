@@ -71,6 +71,11 @@ public class ComputerServiceImpl implements ComputerService {
         Computer computer=new Computer();
         computer.setComputerIp(computerIp);
         List<Computer> computerList=computerDao.selectByRequest(computer);
-        return computerList.get(0);
+        if(computerList.size()>0){
+            return computerList.get(0);
+        }else{
+            return  null;
+        }
+
     }
 }

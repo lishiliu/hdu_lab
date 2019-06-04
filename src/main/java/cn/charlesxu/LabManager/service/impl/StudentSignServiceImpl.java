@@ -39,7 +39,11 @@ public class StudentSignServiceImpl implements StudentSignService {
 
     @Override
     public int signIn(StudentSign studentSign) {
-        List<StudentSign> studentSignList=studentSignDao.selectByRequest(studentSign);
+        StudentSign request=new StudentSign();
+        request.setStudentId(studentSign.getStudentId());
+        request.setClassId(studentSign.getClassId());
+        request.setWeek(studentSign.getWeek());
+        List<StudentSign> studentSignList=studentSignDao.selectByRequest(request);
         studentSign.setId(studentSignList.get(0).getId());
         studentSign.setStatus(2);
         return studentSignDao.updateById(studentSign);
