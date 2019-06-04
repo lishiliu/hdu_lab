@@ -24,6 +24,8 @@ public interface ClassMapper {
 
     List<Class> selectByUserNameAndSemester(@Param("userName") String userName, @Param("semester") String semester);
 
+    List<Class> selectByRequest(Class request);
+
     int updateByPrimaryKeySelective(Class course);
 
     int updateByPrimaryKey(Class course);

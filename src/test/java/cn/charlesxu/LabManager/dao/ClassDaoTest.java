@@ -5,6 +5,7 @@ import cn.charlesxu.LabManager.entity.Class;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.internal.requests.ClassRequest;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -66,6 +67,15 @@ public class ClassDaoTest extends BaseTest {
     @Test
     public void selectByUserNameAndSemester() {
         List<Class> classList = classDao.selectByUserNameAndSemester("40387", "2017-2018-2");
+        Assert.assertTrue(classList != null);
+
+    }
+
+    @Test
+    public void selectByRequest() {
+        Class request=new Class();
+        request.setClassId("(2017-2018-2)-B0507110-40392-2");
+        List<Class> classList = classDao.selectByRequest(request);
         Assert.assertTrue(classList != null);
 
     }

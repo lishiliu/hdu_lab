@@ -74,6 +74,15 @@ public class ClassDaoImpl implements ClassDao {
         return classMapper.updateByPrimaryKeySelective(course);
     }
 
+    @Override
+    public List<Class> selectByRequest(Class request) {
+        List<Class> classList=classMapper.selectByRequest(request);
+        for (int i = 0; i < classList.size(); i++) {
+            stringToList(classList.get(i));
+        }
+        return classList;
+    }
+
     /*
      *将Class中的classWeek、weekDays、classNum等List属性转换为字符串，以存储到数据库
      */

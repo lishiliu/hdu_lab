@@ -5,7 +5,9 @@ import cn.charlesxu.LabManager.dao.SystemParameterDao;
 import cn.charlesxu.LabManager.entity.Class;
 import cn.charlesxu.LabManager.entity.Semester;
 import cn.charlesxu.LabManager.entity.SystemParameter;
+import cn.charlesxu.LabManager.entity.form.SimpleOrder;
 import cn.charlesxu.LabManager.service.ClassService;
+import cn.charlesxu.LabManager.service.OrderService;
 import cn.charlesxu.LabManager.service.SemesterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class ClassServiceImpl implements ClassService {
 
     @Autowired
     private SemesterService semesterService;
+
+    @Autowired
+    private OrderService orderService;
 
     public int addClass(Class course) {
         return classDao.insert(course);
@@ -70,5 +75,62 @@ public class ClassServiceImpl implements ClassService {
 
     public List<Class> selectClassByUsernameAndSemester(String UserName, String semester) {
         return classDao.selectByUserNameAndSemester(UserName, semester);
+    }
+
+    @Override
+    public List<Class> selectClassByUsernameAndSemesterAndWeek(String userName, String semester, Integer week) {
+       List<Class> classList=classDao.selectByUserNameAndSemester(userName,semester);
+        List<Class> resultList=new ArrayList<>();
+       for(Class course:classList){
+           if(course.getClassWeek().contains(week)){
+               resultList.add(course);
+           }
+       }
+        return resultList;
+    }
+
+    @Override
+    public List<Class> selectClassToLabAdmin(Integer labId) {
+        SystemParameter systemParameter = systemParameterDao.select();
+        Semester semester=semesterService.getSemesterById(systemParameter.getThisSemesterId());
+        List<SimpleOrder> simpleOrderList=orderService.getFinishedSimpleOrderListByLabIdAndSemester(labId,semester.getSemesterString());
+        List<Class> resultList=new ArrayList<>();
+        for(SimpleOrder simpleOrder:simpleOrderList){
+              Class request=new Class();
+              request.setClassId(simpleOrder.getClassId());
+              List<Class> classList=classDao.selectByRequest(request);
+              if(classList.get(0).getClassWeek().contains(systemParameter.getThisWeek())){
+                  resultList.add(classList.get(0));
+              }
+        }
+        return resultList;
+    }
+
+    @Override
+    public List<Class> selectClassToLabAdminBySemester(Integer labId, String semester) {
+        List<SimpleOrder> simpleOrderList=orderService.getFinishedSimpleOrderListByLabIdAndSemester(labId,semester);
+        List<Class> resultList=new ArrayList<>();
+        for(SimpleOrder simpleOrder:simpleOrderList){
+            Class request=new Class();
+            request.setClassId(simpleOrder.getClassId());
+            List<Class> classList=classDao.selectByRequest(request);
+            resultList.add(classList.get(0));
+        }
+        return resultList;
+    }
+
+    @Override
+    public List<Class> selectClassToLabAdminBySemesterAndWeek(Integer labId, String semester,Integer week) {
+        List<SimpleOrder> simpleOrderList=orderService.getFinishedSimpleOrderListByLabIdAndSemester(labId,semester);
+        List<Class> resultList=new ArrayList<>();
+        for(SimpleOrder simpleOrder:simpleOrderList){
+            Class request=new Class();
+            request.setClassId(simpleOrder.getClassId());
+            List<Class> classList=classDao.selectByRequest(request);
+            if(classList.get(0).getClassWeek().contains(week)){
+                resultList.add(classList.get(0));
+            }
+        }
+        return resultList;
     }
 }

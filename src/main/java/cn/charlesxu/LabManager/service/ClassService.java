@@ -22,4 +22,11 @@ public interface ClassService {
 
     List<Class> selectClassByUsernameAndSemester(String UserName, String semester);//根据输入学期，查询教师号对应的课程
 
+    List<Class> selectClassByUsernameAndSemesterAndWeek(String UserName, String semester,Integer week);//根据输入学期，查询教师号对应的课程
+
+    List<Class> selectClassToLabAdmin(Integer labId);//根据labId查询实验室课程
+
+    List<Class> selectClassToLabAdminBySemester(Integer labId,String semester);//根据学期查询实验室课程
+
+    List<Class> selectClassToLabAdminBySemesterAndWeek(Integer labId,String semester,Integer week);//根据学期查询实验室课程
 }

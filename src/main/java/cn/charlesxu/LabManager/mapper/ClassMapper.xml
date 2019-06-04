@@ -156,6 +156,35 @@
            where class_id like #{semester}
         )
     </select>
-
-
+    <select id="selectByRequest" resultMap="BaseResultMap" parameterType="cn.charlesxu.LabManager.entity.Class">
+        select
+        <include refid="Base_Column_List"/>
+        from t_class
+        <where>
+            <if test="id != null">
+                id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="classId != null">
+                AND class_id = #{classId,jdbcType=VARCHAR}
+            </if>
+            <if test="className != null">
+                AND class_name = #{className,jdbcType=VARCHAR}
+            </if>
+            <if test="classPeoCount != null">
+                AND class_peo_count = #{classPeoCount,jdbcType=INTEGER}
+            </if>
+            <if test="userName != null">
+                AND user_name = #{userName,jdbcType=VARCHAR}
+            </if>
+            <if test="classWeekString != null">
+                AND class_week_string = #{classWeekString,jdbcType=VARCHAR}
+            </if>
+            <if test="weekDaysString != null">
+                AND week_days_string = #{weekDaysString,jdbcType=VARCHAR}
+            </if>
+            <if test="classNumString != null">
+                AND week_num_string = #{classNumString,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -177,7 +177,7 @@
         AND lab_id = #{labId,jdbcType=INTEGER}
       </if>
       <if test="computerIp != null">
-        AND computerIp = #{computerIp,jdbcType=VARCHAR}
+        AND computer_ip = #{computerIp,jdbcType=VARCHAR}
       </if>
       <if test="computerNum != null">
         AND computer_num = #{computerNum,jdbcType=VARCHAR}

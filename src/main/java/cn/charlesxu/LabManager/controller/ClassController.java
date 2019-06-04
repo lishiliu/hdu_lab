@@ -91,11 +91,59 @@ public class ClassController {
         modelMap.put("course", classList1);
         return modelMap;
     }
+    @RequestMapping(value = "/semester/getClassBySemesterAndWeek", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> getClassBySemesterAndWeek(@RequestBody Map<String, Object> map) {
+        Integer week=new Integer(map.get("selectWeek").toString());
+        List<Class> classList1 = classService.selectClassByUsernameAndSemesterAndWeek(
+                map.get("userName").toString(),
+                map.get("semester").toString(),week);
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        //暂时认为都是success的
+        modelMap.put("result", "success");
+        modelMap.put("course", classList1);
+        return modelMap;
+    }
 
     @RequestMapping(value = "/semester/getThisWeekClassByUsername", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> getThisWeekClassByUsername(@RequestBody Map<String, Object> map) {
         List<Class> classList1 = classService.selectClassByUsernameAndWeek(map.get("userName").toString());
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        //暂时认为都是success的
+        modelMap.put("result", "success");
+        modelMap.put("course", classList1);
+        return modelMap;
+    }
+    @RequestMapping(value = "/lab/getClassByLabId", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> getClassByUsernameToLab(@RequestBody Map<String, Object> map) {
+        Integer labId = new Integer(map.get("labId").toString());
+        List<Class> classList1 = classService.selectClassToLabAdmin(labId);
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        //暂时认为都是success的
+        modelMap.put("result", "success");
+        modelMap.put("course", classList1);
+        return modelMap;
+    }
+    @RequestMapping(value = "/lab/getClassByLabIdAndSemester", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> getClassByLabIdAndSemester(@RequestBody Map<String, Object> map) {
+        Integer labId = new Integer(map.get("labId").toString());
+        List<Class> classList1 = classService.selectClassToLabAdminBySemester(labId,map.get("semester").toString());
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        //暂时认为都是success的
+        modelMap.put("result", "success");
+        modelMap.put("course", classList1);
+        return modelMap;
+    }
+
+    @RequestMapping(value = "/lab/getClassByLabIdAndSemesterAndWeek", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> getClassByLabIdAndSemesterAndWeek(@RequestBody Map<String, Object> map) {
+        Integer labId = new Integer(map.get("labId").toString());
+        Integer week=new Integer(map.get("selectWeek").toString());
+        List<Class> classList1 = classService.selectClassToLabAdminBySemesterAndWeek(labId,map.get("semester").toString(),week);
         Map<String, Object> modelMap = new HashMap<String, Object>();
         //暂时认为都是success的
         modelMap.put("result", "success");

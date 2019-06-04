@@ -23,4 +23,6 @@ public interface ClassDao {
     List<Class> selectByUserNameAndSemester(String userName, String semester);
 
     int updateById(Class record);
+
+    List<Class> selectByRequest(Class request);
 }
