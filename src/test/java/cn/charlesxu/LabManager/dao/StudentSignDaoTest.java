@@ -3,6 +3,7 @@ package cn.charlesxu.LabManager.dao;
 import cn.charlesxu.LabManager.base.BaseTest;
 import cn.charlesxu.LabManager.entity.Class;
 import cn.charlesxu.LabManager.entity.StudentSign;
+import cn.charlesxu.LabManager.entity.form.StudentSignInfoToStudent;
 import cn.charlesxu.LabManager.entity.form.StudentSignInfoToTeacher;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
@@ -42,6 +43,12 @@ public class StudentSignDaoTest extends BaseTest {
         studentSign.setStatus(1);
         int a=studentSignDao.selectCountByRequest(studentSign);
         System.out.println(a);
+    }
+
+    @Test
+    public void selectStudentSignInfoToStudent(){
+        List<StudentSignInfoToStudent> studentSignInfoToStudentList=studentSignDao.selectStudentSignInfoToStudent("15058215","2017-2018-1",3,1);
+        System.out.println(studentSignInfoToStudentList);
     }
 
 }

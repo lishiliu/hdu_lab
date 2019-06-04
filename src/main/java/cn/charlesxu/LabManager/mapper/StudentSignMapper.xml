@@ -30,7 +30,20 @@
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="lab_name" property="labName" jdbcType="VARCHAR" />
   </resultMap>
-
+  <resultMap id="SignInfoToStudentList" type="cn.charlesxu.LabManager.entity.form.StudentSignInfoToStudent">
+    <id column="id" property="id" jdbcType="INTEGER"/>
+    <result column="class_id"  property="classId" jdbcType="VARCHAR"/>
+    <result column="class_name"  property="className" jdbcType="VARCHAR"/>
+    <result column="user_name"  property="userName" jdbcType="VARCHAR"/>
+    <result column="class_week_string" property="classWeekString" jdbcType="VARCHAR"/>
+    <result column="week_days_string"  property="weekDaysString" jdbcType="VARCHAR"/>
+    <result column="class_num_string"  property="classNumString" jdbcType="VARCHAR"/>
+    <result column="student_id" property="studentId" jdbcType="VARCHAR" />
+    <result column="computer_no"  property="computerNo" jdbcType="VARCHAR"/>
+    <result column="create_date"  property="createDate" jdbcType="TIMESTAMP"/>
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="lab_name" property="labName" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List">
     id, student_id, teacher_id, class_id, lab_id, begin_year, end_year, term, week, week_days, 
     class_num, work_date, computer_no, status, create_date
@@ -362,6 +375,14 @@
       </if>
     </where>
   </select>
-
+  <select id="selectStudentSignInfoToStudent" resultMap="SignInfoToStudentList">
+    select
+    tc.class_id as class_id,tc.class_name as class_name,tc.class_week_string as class_week_string,
+    tc.week_days_string as week_days_string,tc.class_num_string as class_num_string,tc.user_name as user_name,
+    tss.create_date as create_date
+    from t_student_sign as tss JOIN t_class as tc on tss.class_id = tc.class_id
+    where  tss.student_id= #{studentId,jdbcType=VARCHAR} AND tss.week= #{week,jdbcType=INTEGER}
+    AND tss.class_id like #{semester} AND tss.status= #{status,jdbcType=INTEGER}
+  </select>
 
 </mapper>

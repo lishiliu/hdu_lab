@@ -9,6 +9,7 @@ import cn.charlesxu.LabManager.entity.Student;
 import cn.charlesxu.LabManager.entity.StudentSign;
 import cn.charlesxu.LabManager.entity.define.SignStatusDefine;
 import cn.charlesxu.LabManager.entity.SystemParameter;
+import cn.charlesxu.LabManager.entity.form.StudentSignInfoToStudent;
 import cn.charlesxu.LabManager.entity.form.StudentSignInfoToTeacher;
 import cn.charlesxu.LabManager.service.StudentSignService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ public class StudentSignServiceImpl implements StudentSignService {
     public int signIn(StudentSign studentSign) {
         List<StudentSign> studentSignList=studentSignDao.selectByRequest(studentSign);
         studentSign.setId(studentSignList.get(0).getId());
+        studentSign.setStatus(2);
         return studentSignDao.updateById(studentSign);
     }
 
@@ -51,13 +53,14 @@ public class StudentSignServiceImpl implements StudentSignService {
         request.setClassId(classId);
         request.setWeek(systemParameter.getThisWeek());
         request.setStatus(status);
+        request.setCreateDate(getNowDateTime());
+        //定时任务
         return studentSignDao.updateStatusByClassIdAndWeekAndTeacher(request);
     }
 
     @Override
-    public List<StudentSignInfoToTeacher> getSignRecordByTeacherAndClassAndWeek(String teacherId, String classId) {
-        SystemParameter systemParameter = systemParamterDao.select();
-        List<StudentSignInfoToTeacher> studentSignInfoToTeacherList=studentSignDao.selectStudentSignInfoToTeacher(teacherId,classId,systemParameter.getThisWeek());
+    public List<StudentSignInfoToTeacher> getSignRecordByTeacherAndClassAndWeek(String teacherId, String classId,int week) {
+        List<StudentSignInfoToTeacher> studentSignInfoToTeacherList=studentSignDao.selectStudentSignInfoToTeacher(teacherId,classId,week);
         for(int i=0;i<studentSignInfoToTeacherList.size();i++){
             if(studentSignInfoToTeacherList.get(i).getStatus()==0){
                 studentSignInfoToTeacherList.get(i).setStatusString(SignStatusDefine.SignStatus_0);
@@ -118,6 +121,13 @@ public class StudentSignServiceImpl implements StudentSignService {
     @Override
     public List<StudentSign> getSignRecordByTime(Date startDate, Date endDate, int labId) {
         return null;
+    }
+
+    @Override
+    public List<StudentSignInfoToStudent> getCurrentSignTask(String studentId) {
+        SystemParameter systemParameter = systemParamterDao.select();
+        Semester semester=semesterDao.selectById(systemParameter.getThisSemesterId());
+        return studentSignDao.selectStudentSignInfoToStudent(studentId,semester.getSemesterString(),systemParameter.getThisWeek(),1);
     }
 
     public Date getNowDateTime() {

@@ -16,6 +16,6 @@ public interface ComputerService {
 
     List<Computer> selectComputerByLabId(Integer labId);//根据实验室查询设备
 
-    String  selectNumByIp(String computerIp);//根据设备Ip获取座位号
+    Computer  selectComputerByIp(String computerIp);//根据设备Ip获取设备
 
 }

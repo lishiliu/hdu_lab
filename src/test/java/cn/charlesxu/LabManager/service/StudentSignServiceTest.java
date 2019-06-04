@@ -22,7 +22,7 @@ public class StudentSignServiceTest extends BaseTest {
 
     @Test
     public void getSignRecordByTeacherAndClassAndWeek() {
-        List<StudentSignInfoToTeacher> studentSignInfoToTeachers=studentSignService.getSignRecordByTeacherAndClassAndWeek("40387","(2017-2018-1)-S0500500-40387-1");
+        List<StudentSignInfoToTeacher> studentSignInfoToTeachers=studentSignService.getSignRecordByTeacherAndClassAndWeek("40387","(2017-2018-1)-S0500500-40387-1",3);
         System.out.println(studentSignInfoToTeachers);
     }
     @Test

@@ -67,10 +67,10 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
-    public String selectNumByIp(String computerIp) {
+    public Computer selectComputerByIp(String computerIp) {
         Computer computer=new Computer();
         computer.setComputerIp(computerIp);
         List<Computer> computerList=computerDao.selectByRequest(computer);
-        return computerList.get(0).getComputerNum();
+        return computerList.get(0);
     }
 }
