@@ -70,9 +70,13 @@ public class StudentSignController {
     @RequestMapping(value = "/addStudent", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> addStudent(@RequestBody Map<String, Object> map) {
-
+        int result=studentSignService.addStudent(map.get("teacherId").toString(),map.get("classId").toString(),map.get("studentId").toString(),map.get("studentName").toString());
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        modelMap.put("result", "success");
+        if (result > 0) {
+            modelMap.put("result", "success");
+        } else {
+            modelMap.put("result", "fail");
+        }
         return modelMap;
     }
 }

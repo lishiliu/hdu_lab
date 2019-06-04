@@ -85,7 +85,7 @@ public class StudentSignServiceImpl implements StudentSignService {
         Student student=new Student();
         student.setStudentId(studentId);
         List<Student> studentList=studentDao.selectByRequest(student);
-        if(studentList==null){
+        if(studentList.size()==0){
             student.setStudentName(studentName);
             student.setPassword(studentId);
             student.setRegTime(getNowDateTime());
@@ -94,6 +94,9 @@ public class StudentSignServiceImpl implements StudentSignService {
         SystemParameter systemParameter = systemParamterDao.select();
         Semester semester=semesterDao.selectById(systemParameter.getThisSemesterId());
         StudentSign studentSign=new StudentSign();
+        studentSign.setClassId(classId);
+        studentSign.setTeacherId(teacherId);
+        studentSign.setStudentId(studentId);
         studentSign.setStatus(0);
         studentSign.setComputerNo(null);
         studentSign.setWeekDays(null);
