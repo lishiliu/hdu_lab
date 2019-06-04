@@ -4,6 +4,7 @@ import cn.charlesxu.LabManager.dao.StudentDao;
 import cn.charlesxu.LabManager.dao.StudentSignDao;
 import cn.charlesxu.LabManager.entity.Student;
 import cn.charlesxu.LabManager.entity.StudentSign;
+import cn.charlesxu.LabManager.entity.form.StudentSignInfoToTeacher;
 import cn.charlesxu.LabManager.mapper.StudentMapper;
 import cn.charlesxu.LabManager.mapper.StudentSignMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,11 @@ public class StudentSignDaoImpl implements StudentSignDao{
     }
 
     @Override
+    public int selectCountByRequest(StudentSign request) {
+        return studentSignMapper.selectCountByRequest(request);
+    }
+
+    @Override
     public int batchInsert(List<StudentSign> studentSignList) {
         return studentSignMapper.batchInsert(studentSignList);
     }
@@ -56,6 +62,11 @@ public class StudentSignDaoImpl implements StudentSignDao{
     @Override
     public int updateStatusByClassIdAndWeekAndTeacher(StudentSign record) {
         return studentSignMapper.updateStatusByClassIdAndWeekAndTeacher(record);
+    }
+
+    @Override
+    public ArrayList<StudentSignInfoToTeacher> selectStudentSignInfoToTeacher(String teacherId, String classId, int week) {
+        return studentSignMapper.selectStudentSignInfoToTeacher(teacherId,classId,week);
     }
 
     public Date getNowDateTime() {

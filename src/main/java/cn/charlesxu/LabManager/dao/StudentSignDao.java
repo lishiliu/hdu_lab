@@ -1,8 +1,8 @@
 package cn.charlesxu.LabManager.dao;
 
-
-import cn.charlesxu.LabManager.entity.QuartzTask;
 import cn.charlesxu.LabManager.entity.StudentSign;
+import cn.charlesxu.LabManager.entity.form.StudentSignInfoToTeacher;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,7 @@ public interface StudentSignDao {
 
     ArrayList<StudentSign> selectByRequest(StudentSign request);
 
+    int selectCountByRequest(StudentSign request);
     /**
      * 批量插入
      *
@@ -28,4 +29,7 @@ public interface StudentSignDao {
     int batchInsert(List<StudentSign> studentSignList);
 
     int updateStatusByClassIdAndWeekAndTeacher(StudentSign record);
+
+    ArrayList<StudentSignInfoToTeacher> selectStudentSignInfoToTeacher(@Param("teacherId") String teacherId, @Param("classId") String classId, @Param("week") int week);
+
 }

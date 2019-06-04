@@ -1,6 +1,8 @@
 package cn.charlesxu.LabManager.mapper;
 
 import cn.charlesxu.LabManager.entity.StudentSign;
+import cn.charlesxu.LabManager.entity.form.StudentSignInfoToTeacher;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public interface StudentSignMapper {
 
     ArrayList<StudentSign> selectByRequest(StudentSign request);
 
+    int selectCountByRequest(StudentSign request);
 
     /**
      * 批量插入
@@ -32,4 +35,6 @@ public interface StudentSignMapper {
     int batchInsert(List<StudentSign> studentSignList);
 
     int updateStatusByClassIdAndWeekAndTeacher(StudentSign record);
+
+    ArrayList<StudentSignInfoToTeacher> selectStudentSignInfoToTeacher(@Param("teacherId") String teacherId,@Param("classId") String classId,@Param("week") int week);
 }

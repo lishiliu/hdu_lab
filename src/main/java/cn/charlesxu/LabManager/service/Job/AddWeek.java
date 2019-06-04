@@ -67,9 +67,8 @@ public class AddWeek {
                        }
                    }
                }
-
-
-
+             studentSignDao.batchInsert(insertList);
+               System.out.println("初始化本周学生签到记录成功！");
            }
        }
 

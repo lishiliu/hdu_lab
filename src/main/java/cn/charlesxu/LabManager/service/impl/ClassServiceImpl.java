@@ -65,7 +65,7 @@ public class ClassServiceImpl implements ClassService {
         SystemParameter systemParameter = systemParameterDao.select();
         Semester semester = semesterService.getSemesterById(systemParameter.getThisSemesterId());
         List<Class> classList=classDao.selectByStudentId(studentId,semester.getSemesterString());
-        return null;
+        return classList;
     }
 
     public List<Class> selectClassByUsernameAndSemester(String UserName, String semester) {

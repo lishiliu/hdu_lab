@@ -1,6 +1,7 @@
 package cn.charlesxu.LabManager.service;
 
 import cn.charlesxu.LabManager.entity.StudentSign;
+import cn.charlesxu.LabManager.entity.form.StudentSignInfoToTeacher;
 
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,11 @@ public interface StudentSignService {
 
     int updateStatus(String teacherId,String classId,int status);//开始签到
 
-    List<StudentSign> getSignRecordByTeacherAndClassAndWeek(String teacherId,String classId,String week);//教师学生签到记录查看
+    List<StudentSignInfoToTeacher> getSignRecordByTeacherAndClassAndWeek(String teacherId, String classId);//教师学生签到记录查看
+
+    int selectCountByRequest(StudentSign studentSign);
+
+    int addStudent(String teacherId, String classId,String studentId,String studentName);
 
     List<StudentSign> getSignRecordByClassAndWeekAndLabId(String classId,String week,int labId);//实验室管理员签到记录查看
 
