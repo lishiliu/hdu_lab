@@ -27,12 +27,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public int login(String studentId, String password) {
-        int result=0;
+        int result=1;
         Student student=new Student();
         student.setStudentId(studentId);
         student.setPassword(password);
         List<Student> resultList=studentDao.selectByRequest(student);
-        if(resultList==null){
+        if(resultList.size()==0){
             result=-1;
         }
         return result;
@@ -71,6 +71,15 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public int updateStudent(Student student) {
-        return studentDao.updateById(student);
+        Student request=new Student();
+        request.setStudentId(student.getStudentId());
+        int result = 0;
+        if (studentDao.selectByRequest(request).size()>2) {
+            result = -1;
+        }
+        if (result == 0) {
+            result = studentDao.updateById(student);
+        }
+        return result;
     }
 }
