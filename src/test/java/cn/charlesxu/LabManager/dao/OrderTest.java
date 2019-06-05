@@ -100,7 +100,7 @@ public class OrderTest extends BaseTest {
         orderDetails.add(orderDetail1);
         orderDetails.add(orderDetail2);
         Order order = new Order();
-        order.setClassId("2017-2018-2 A555");
+        order.setClassId("(2018-2019-2)-A0507110-41558-1");
         order.setClassName("OS");
         order.setClassPeoCount(50);
         order.setUserName("2222");

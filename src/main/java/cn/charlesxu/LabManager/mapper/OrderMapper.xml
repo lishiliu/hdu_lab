@@ -97,7 +97,8 @@
         last_modify
     </sql>
 
-    <insert id="insert" parameterType="cn.charlesxu.LabManager.entity.Order">
+    <insert id="insert" parameterType="cn.charlesxu.LabManager.entity.Order" useGeneratedKeys="true"
+            keyProperty="id">
         insert into t_order (id, user_name, class_id,
                              class_name, main_class_id, main_class_order,
                              begin_year, end_year, term,
