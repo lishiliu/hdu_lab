@@ -26,4 +26,6 @@ public interface StudentSignService {
     List<StudentSign> getSignRecordByTime(Date startDate, Date endDate,int labId);//实验室管理员根据时间查询签到记录
 
     List<StudentSignInfoToStudent> getCurrentSignTask(String studentId);
+
+    List<StudentSignInfoToStudent> getPastedSignTaskBySemester(String studentId,String semester);
 }

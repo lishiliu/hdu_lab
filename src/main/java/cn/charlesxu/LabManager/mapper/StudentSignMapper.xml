@@ -384,5 +384,12 @@
     where  tss.student_id= #{studentId,jdbcType=VARCHAR} AND tss.week= #{week,jdbcType=INTEGER}
     AND tss.class_id like #{semester} AND tss.status= #{status,jdbcType=INTEGER}
   </select>
-
+  <select id="selectHistoryStudentSignInfoToStudent" resultMap="SignInfoToStudentList">
+    select
+    tc.class_id as class_id,tc.class_name as class_name,tc.class_week_string as class_week_string,
+    tc.week_days_string as week_days_string,tc.class_num_string as class_num_string,tc.user_name as user_name,
+    tss.create_date as create_date,tss.status as status,tss.computer_no as computer_no,tl.lab_name as lab_name
+    from t_student_sign as tss JOIN t_class as tc on tss.class_id = tc.class_id JOIN t_lab as tl on tss.lab_id=tl.id
+    where  tss.student_id= #{studentId,jdbcType=VARCHAR}  AND tss.class_id like #{semester}
+  </select>
 </mapper>

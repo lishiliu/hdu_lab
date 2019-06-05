@@ -51,4 +51,9 @@ public class StudentSignDaoTest extends BaseTest {
         System.out.println(studentSignInfoToStudentList);
     }
 
+    @Test
+    public void selectHistoryStudentSignInfoToStudent(){
+        List<StudentSignInfoToStudent> studentSignInfoToStudentList=studentSignDao.selectHistoryStudentSignInfoToStudent("15058215","2017-2018-1");
+        System.out.println(studentSignInfoToStudentList);
+    }
 }

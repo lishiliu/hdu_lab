@@ -68,6 +68,27 @@ public class StudentSignController {
         return modelMap;
     }
 
+    @RequestMapping(value = "/getPastedSignTaskThisSemester", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> getPastedSignTaskThisSemester(@RequestBody Map<String, Object> map) {
+        SystemParameter systemParameter=systemParameterService.getSystemParameter();
+        Semester semester=semesterService.getSemesterById(systemParameter.getThisSemesterId());
+        List<StudentSignInfoToStudent> pastedSignTaskList=studentSignService.getPastedSignTaskBySemester(map.get("studentId").toString(),semester.getSemesterString());
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        modelMap.put("result", "success");
+        modelMap.put("pastedSignTaskList", pastedSignTaskList);
+        return modelMap;
+    }
+    @RequestMapping(value = "/getPastedSignTaskBySemester", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> getPastedSignTaskBySemester(@RequestBody Map<String, Object> map) {
+        List<StudentSignInfoToStudent> pastedSignTaskList=studentSignService.getPastedSignTaskBySemester(map.get("studentId").toString(),map.get("semester").toString());
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        modelMap.put("result", "success");
+        modelMap.put("pastedSignTaskList", pastedSignTaskList);
+        return modelMap;
+    }
+
     @RequestMapping(value = "/getSignRecordToTeacherByWeek", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> getSignRecordToTeacherByWeek(@RequestBody Map<String, Object> map) {
@@ -107,6 +128,26 @@ public class StudentSignController {
         request.setBeginYear(semester.getBeginYear());
         request.setEndYear(semester.getEndYear());
         request.setTerm(semester.getTerm());
+        request.setStatus(2);
+        request.setStudentId(map.get("studentId").toString());
+        int doCount=studentSignService.selectCountByRequest(request);
+        request.setStatus(3);
+        int undoCount=studentSignService.selectCountByRequest(request);
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        modelMap.put("result", "success");
+        modelMap.put("undoCount", undoCount);
+        modelMap.put("doCount", doCount);
+        return modelMap;
+    }
+    @RequestMapping(value = "/getSignCountToStudentBySemester", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> getSignCountToStudentBySemester(@RequestBody Map<String, Object> map) {
+        String semester=map.get("semester").toString();
+        String[] arr = semester.split("-");
+        StudentSign request=new StudentSign();
+        request.setBeginYear(Integer.valueOf(arr[0]));
+        request.setEndYear(Integer.valueOf(arr[1]));
+        request.setTerm(Integer.valueOf(arr[2]));
         request.setStatus(2);
         request.setStudentId(map.get("studentId").toString());
         int doCount=studentSignService.selectCountByRequest(request);

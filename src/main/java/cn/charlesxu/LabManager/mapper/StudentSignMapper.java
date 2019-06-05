@@ -41,4 +41,6 @@ public interface StudentSignMapper {
     ArrayList<StudentSignInfoToTeacher> selectStudentSignInfoToTeacher(@Param("teacherId") String teacherId,@Param("classId") String classId,@Param("week") int week);
 
     ArrayList<StudentSignInfoToStudent> selectStudentSignInfoToStudent(@Param("studentId") String studentId, @Param("semester")String semester, @Param("week") int week, @Param("status")int status);
+
+    ArrayList<StudentSignInfoToStudent> selectHistoryStudentSignInfoToStudent(@Param("studentId") String studentId, @Param("semester")String semester);
 }

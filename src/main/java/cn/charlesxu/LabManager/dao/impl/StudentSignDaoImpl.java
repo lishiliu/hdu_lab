@@ -4,6 +4,7 @@ import cn.charlesxu.LabManager.dao.StudentDao;
 import cn.charlesxu.LabManager.dao.StudentSignDao;
 import cn.charlesxu.LabManager.entity.Student;
 import cn.charlesxu.LabManager.entity.StudentSign;
+import cn.charlesxu.LabManager.entity.define.SignStatusDefine;
 import cn.charlesxu.LabManager.entity.form.StudentSignInfoToStudent;
 import cn.charlesxu.LabManager.entity.form.StudentSignInfoToTeacher;
 import cn.charlesxu.LabManager.mapper.StudentMapper;
@@ -80,6 +81,16 @@ public class StudentSignDaoImpl implements StudentSignDao{
         return studentSignInfoToStudentList;
     }
 
+    @Override
+    public ArrayList<StudentSignInfoToStudent> selectHistoryStudentSignInfoToStudent(String studentId, String semester) {
+        semester="_"+semester+"%";
+        ArrayList<StudentSignInfoToStudent> studentSignInfoToStudentList=studentSignMapper.selectHistoryStudentSignInfoToStudent(studentId,semester);
+        for (int i = 0; i < studentSignInfoToStudentList.size(); i++) {
+            stringToList(studentSignInfoToStudentList.get(i));
+        }
+        return studentSignInfoToStudentList;
+    }
+
     public Date getNowDateTime() {
         Calendar calendar = Calendar.getInstance();
         return calendar.getTime();
@@ -89,11 +100,27 @@ public class StudentSignDaoImpl implements StudentSignDao{
    *将SignInfoToStudent中的classWeekString、weekDaysString、classNumString等字符串属性转换为数组
    */
     public void stringToList(StudentSignInfoToStudent course) {
+
+        //设置截止时间
         Date date=course.getCreateDate();
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         c.add(Calendar.HOUR, 1);
         course.setEndDate(c.getTime());
+
+        //状态转换
+        if(course.getStatus()==0){
+            course.setStatusString(SignStatusDefine.SignStatus_0);
+        }
+        if(course.getStatus()==1){
+            course.setStatusString(SignStatusDefine.SignStatus_1);
+        }
+        if(course.getStatus()==2){
+            course.setStatusString(SignStatusDefine.SignStatus_2);
+        }
+        if(course.getStatus()==3){
+            course.setStatusString(SignStatusDefine.SignStatus_3);
+        }
         List<Integer> classWeek = new ArrayList<Integer>();
         List<Integer> weekDays = new ArrayList<Integer>();
         List<Integer> classNum = new ArrayList<Integer>();

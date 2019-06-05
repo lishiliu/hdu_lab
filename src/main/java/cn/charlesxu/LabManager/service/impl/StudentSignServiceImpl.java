@@ -134,6 +134,11 @@ public class StudentSignServiceImpl implements StudentSignService {
         return studentSignDao.selectStudentSignInfoToStudent(studentId,semester.getSemesterString(),systemParameter.getThisWeek(),1);
     }
 
+    @Override
+    public List<StudentSignInfoToStudent> getPastedSignTaskBySemester(String studentId, String semester) {
+        return studentSignDao.selectHistoryStudentSignInfoToStudent(studentId,semester);
+    }
+
     public Date getNowDateTime() {
         Calendar calendar = Calendar.getInstance();
         return calendar.getTime();
