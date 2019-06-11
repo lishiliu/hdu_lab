@@ -102,11 +102,13 @@ public class StudentSignController {
 
     @RequestMapping(value = "/getSignCountToTeacher", method = RequestMethod.POST)
     public @ResponseBody
-    Map<String, Object> getSignCountToTeacher(@RequestBody Class course) {
+    Map<String, Object> getSignCountToTeacher(@RequestBody Map<String, Object> map) {
+        Integer week = new Integer(map.get("selectWeek").toString());
         StudentSign request=new StudentSign();
+        request.setWeek(week);
         request.setStatus(1);
-        request.setClassId(course.getClassId());
-        request.setTeacherId(course.getUserName());
+        request.setClassId(map.get("classId").toString());
+        request.setTeacherId(map.get("teacherId").toString());
         int undoCount1=studentSignService.selectCountByRequest(request);
         request.setStatus(3);
         int undoCount2=studentSignService.selectCountByRequest(request);

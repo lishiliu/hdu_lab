@@ -53,6 +53,7 @@ public class SemesterServiceImpl implements SemesterService {
         }
         Semester1 semester_1 = new Semester1();
         semester_1.setNowSemester(nowSemester);
+        semester_1.setThisWeek(systemParameter.getThisWeek());
         semester_1.setMaxWeek(maxWeek);
         return semester_1;
     }

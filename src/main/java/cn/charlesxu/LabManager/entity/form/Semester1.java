@@ -5,6 +5,9 @@ package cn.charlesxu.LabManager.entity.form;
  */
 public class Semester1 {
     private String nowSemester;
+
+    private Integer thisWeek;
+
     private Integer maxWeek;
 
     public String getNowSemester() {
@@ -13,6 +16,14 @@ public class Semester1 {
 
     public void setNowSemester(String nowSemester) {
         this.nowSemester = nowSemester;
+    }
+
+    public Integer getThisWeek() {
+        return thisWeek;
+    }
+
+    public void setThisWeek(Integer thisWeek) {
+        this.thisWeek = thisWeek;
     }
 
     public Integer getMaxWeek() {
@@ -27,6 +38,7 @@ public class Semester1 {
     public String toString() {
         return "Semester1{" +
                 "nowSemester='" + nowSemester + '\'' +
+                ", thisWeek=" + thisWeek +
                 ", maxWeek=" + maxWeek +
                 '}';
     }
