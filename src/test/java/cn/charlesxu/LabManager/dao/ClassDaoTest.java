@@ -72,6 +72,13 @@ public class ClassDaoTest extends BaseTest {
     }
 
     @Test
+    public void selectByStudentIdAndSemester() {
+        List<Class> classList = classDao.selectByStudentId("15058215", "2017-2018-1");
+        Assert.assertTrue(classList != null);
+
+    }
+
+    @Test
     public void selectByRequest() {
         Class request=new Class();
         request.setClassId("(2017-2018-2)-B0507110-40392-2");

@@ -18,7 +18,7 @@ public interface ClassService {
 
     List<Class> selectClassByUsernameAndWeek(String username);//根据教师号获取当前周的课程
 
-    List<Class> selectClassByStudentId(String studentId);//根据学生号获取学生课程
+    List<Class> selectClassByStudentIdAndSemester(String studentId,String semester);//根据学生号获取学生课程
 
     List<Class> selectClassByUsernameAndSemester(String UserName, String semester);//根据输入学期，查询教师号对应的课程
 

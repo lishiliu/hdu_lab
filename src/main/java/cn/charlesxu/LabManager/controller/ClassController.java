@@ -2,8 +2,11 @@ package cn.charlesxu.LabManager.controller;
 
 import cn.charlesxu.LabManager.entity.Class;
 import cn.charlesxu.LabManager.entity.CourseTable;
+import cn.charlesxu.LabManager.entity.Semester;
+import cn.charlesxu.LabManager.entity.SystemParameter;
 import cn.charlesxu.LabManager.service.ClassService;
 import cn.charlesxu.LabManager.service.CourseTableService;
+import cn.charlesxu.LabManager.service.SemesterService;
 import cn.charlesxu.LabManager.service.SystemParameterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +34,9 @@ public class ClassController {
 
     @Autowired
     private SystemParameterService systemParameterService;
+
+    @Autowired
+    private SemesterService semesterService;
 
     //添加一节课
     @RequestMapping(value = "/addclass", method = RequestMethod.POST)
@@ -216,6 +222,29 @@ public class ClassController {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         //暂时认为都是success的
         modelMap.put("result", "success");
+        return modelMap;
+    }
+
+    @RequestMapping(value = "/getClassByStudentId", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> getClassByStudentId(@RequestBody Map<String, Object> map) {
+        SystemParameter systemParameter = systemParameterService.getSystemParameter();
+        Semester semester = semesterService.getSemesterById(systemParameter.getThisSemesterId());
+        List<Class> classList1 = classService.selectClassByStudentIdAndSemester(map.get("studentId").toString(),semester.getSemesterString());
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        //暂时认为都是success的
+        modelMap.put("result", "success");
+        modelMap.put("course", classList1);
+        return modelMap;
+    }
+    @RequestMapping(value = "/getClassByStudentIdAndSemester", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> getClassByStudentIdAndSemester(@RequestBody Map<String, Object> map) {
+        List<Class> classList1 = classService.selectClassByStudentIdAndSemester(map.get("studentId").toString(),map.get("semester").toString());
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        //暂时认为都是success的
+        modelMap.put("result", "success");
+        modelMap.put("course", classList1);
         return modelMap;
     }
 

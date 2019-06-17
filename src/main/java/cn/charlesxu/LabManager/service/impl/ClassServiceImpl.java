@@ -66,10 +66,8 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public List<Class> selectClassByStudentId(String studentId) {
-        SystemParameter systemParameter = systemParameterDao.select();
-        Semester semester = semesterService.getSemesterById(systemParameter.getThisSemesterId());
-        List<Class> classList=classDao.selectByStudentId(studentId,semester.getSemesterString());
+    public List<Class> selectClassByStudentIdAndSemester(String studentId,String semester) {
+        List<Class> classList=classDao.selectByStudentId(studentId,semester);
         return classList;
     }
 
