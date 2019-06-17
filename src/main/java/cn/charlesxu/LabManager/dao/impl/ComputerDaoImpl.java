@@ -29,6 +29,7 @@ public class ComputerDaoImpl implements ComputerDao{
 
     @Override
     public int insertSelective(Computer record) {
+        record.setStatus(0);
         record.setCreateTime(getNowDateTime());
         record.setUpdateTime(getNowDateTime());
         return computerMapper.updateByPrimaryKeySelective(record);

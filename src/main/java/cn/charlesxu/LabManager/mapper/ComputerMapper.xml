@@ -8,13 +8,13 @@
     <result column="computer_num" property="computerNum" jdbcType="VARCHAR" />
     <result column="software" property="software" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
-    <result column="system" property="system" jdbcType="VARCHAR" />
+    <result column="system_type" property="systemType" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, lab_id, computer_ip, computer_num, software, type, system, status, create_time, 
+    id, lab_id, computer_ip, computer_num, software, type, system_type, status, create_time,
     update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -30,24 +30,24 @@
   <insert id="insert" parameterType="cn.charlesxu.LabManager.entity.Computer" >
     insert into t_computer (id, lab_id, computer_ip, 
       computer_num, software, type, 
-      system, status, create_time, 
+      system_type, status, create_time,
       update_time)
     values (#{id,jdbcType=INTEGER}, #{labId,jdbcType=INTEGER}, #{computerIp,jdbcType=VARCHAR}, 
       #{computerNum,jdbcType=VARCHAR}, #{software,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{system,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+      #{systemType,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
 
   <insert id="batchInsert" parameterType="java.util.List">
     insert into t_computer (id, lab_id, computer_ip,
     computer_num, software, type,
-    system, status, create_time,
+    system_type, status, create_time,
     update_time)
     values
     <foreach collection="list" item="item" index="index" separator=",">
       (#{item.id,jdbcType=INTEGER}, #{item.labId,jdbcType=INTEGER}, #{item.computerIp,jdbcType=VARCHAR},
       #{item.computerNum,jdbcType=VARCHAR}, #{item.software,jdbcType=VARCHAR}, #{item.type,jdbcType=VARCHAR},
-      #{item.system,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP},
+      #{item.systemType,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP},
       #{item.updateTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
@@ -73,8 +73,8 @@
       <if test="type != null" >
         type,
       </if>
-      <if test="system != null" >
-        system,
+      <if test="systemType != null" >
+        system_type,
       </if>
       <if test="status != null" >
         status,
@@ -105,8 +105,8 @@
       <if test="type != null" >
         #{type,jdbcType=VARCHAR},
       </if>
-      <if test="system != null" >
-        #{system,jdbcType=VARCHAR},
+      <if test="systemType != null" >
+        #{systemType,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -137,8 +137,8 @@
       <if test="type != null" >
         type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="system != null" >
-        system = #{system,jdbcType=VARCHAR},
+      <if test="systemType != null" >
+        system_type = #{systemType,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -159,7 +159,7 @@
       computer_num = #{computerNum,jdbcType=VARCHAR},
       software = #{software,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
-      system = #{system,jdbcType=VARCHAR},
+      system_type = #{systemType,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
@@ -188,8 +188,8 @@
       <if test="type != null">
         AND type = #{type,jdbcType=VARCHAR}
       </if>
-      <if test="system != null">
-        AND system = #{system,jdbcType=VARCHAR}
+      <if test="systemType != null">
+        AND system_type = #{systemType,jdbcType=VARCHAR}
       </if>
       <if test="status != null">
         AND status = #{status,jdbcType=INTEGER}
@@ -204,7 +204,7 @@
   </select>
   <select id="selectCountByRequest" resultType="java.lang.Integer" parameterType="cn.charlesxu.LabManager.entity.Computer">
     select
-    COUNT (*)
+    count(*)
     from t_computer
     <where>
       <if test="id != null">
@@ -225,8 +225,8 @@
       <if test="type != null">
         AND type = #{type,jdbcType=VARCHAR}
       </if>
-      <if test="system != null">
-        AND system = #{system,jdbcType=VARCHAR}
+      <if test="systemType != null">
+        AND system_type = #{systemType,jdbcType=VARCHAR}
       </if>
       <if test="status != null">
         AND status = #{status,jdbcType=INTEGER}

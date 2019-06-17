@@ -15,7 +15,7 @@ public class Computer {
 
     private String type;
 
-    private String system;
+    private String systemType;
 
     private Integer status;
 
@@ -73,12 +73,12 @@ public class Computer {
         this.type = type;
     }
 
-    public String getSystem() {
-        return system;
+    public String getSystemType() {
+        return systemType;
     }
 
-    public void setSystem(String system) {
-        this.system = system;
+    public void setSystemType(String systemType) {
+        this.systemType = systemType;
     }
 
     public Integer getStatus() {
@@ -122,7 +122,7 @@ public class Computer {
                 ", computerNum='" + computerNum + '\'' +
                 ", software='" + software + '\'' +
                 ", type='" + type + '\'' +
-                ", system='" + system + '\'' +
+                ", systemType='" + systemType + '\'' +
                 ", status=" + status +
                 ", statusString='" + statusString + '\'' +
                 ", createTime=" + createTime +
