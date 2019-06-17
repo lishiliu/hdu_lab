@@ -51,6 +51,11 @@ public class ComputerDaoImpl implements ComputerDao{
     }
 
     @Override
+    public int selectCountByRequest(Computer request) {
+        return computerMapper.selectCountByRequest(request);
+    }
+
+    @Override
     public int batchInsert(List<Computer> computerList) {
         return computerMapper.batchInsert(computerList);
     }

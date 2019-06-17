@@ -22,6 +22,8 @@ public interface ComputerMapper {
 
     ArrayList<Computer> selectByRequest(Computer request);
 
+    int selectCountByRequest(Computer request);
+
     /**
      * 批量插入
      *

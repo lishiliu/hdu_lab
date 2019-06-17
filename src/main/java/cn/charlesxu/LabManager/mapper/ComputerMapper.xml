@@ -202,5 +202,43 @@
       </if>
     </where>
   </select>
+  <select id="selectCountByRequest" resultType="java.lang.Integer" parameterType="cn.charlesxu.LabManager.entity.Computer">
+    select
+    COUNT (*)
+    from t_computer
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="labId != null">
+        AND lab_id = #{labId,jdbcType=INTEGER}
+      </if>
+      <if test="computerIp != null">
+        AND computer_ip = #{computerIp,jdbcType=VARCHAR}
+      </if>
+      <if test="computerNum != null">
+        AND computer_num = #{computerNum,jdbcType=VARCHAR}
+      </if>
+      <if test="software != null">
+        AND software = #{software,jdbcType=VARCHAR}
+      </if>
+      <if test="type != null">
+        AND type = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="system != null">
+        AND system = #{system,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null">
+        AND status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
 
 </mapper>

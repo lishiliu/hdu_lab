@@ -18,4 +18,6 @@ public interface ComputerService {
 
     Computer  selectComputerByIp(String computerIp);//根据设备Ip获取设备
 
+    int selectCountByRequest(Computer computer);//根据需求获取设备数量
+
 }

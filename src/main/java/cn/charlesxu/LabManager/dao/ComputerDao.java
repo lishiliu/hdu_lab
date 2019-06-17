@@ -19,6 +19,7 @@ public interface ComputerDao {
 
     ArrayList<Computer> selectByRequest(Computer request);
 
+    int selectCountByRequest(Computer request);
     /**
      * 批量插入
      *

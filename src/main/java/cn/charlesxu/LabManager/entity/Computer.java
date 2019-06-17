@@ -19,6 +19,8 @@ public class Computer {
 
     private Integer status;
 
+    private  String statusString;
+
     private Date createTime;
 
     private Date updateTime;
@@ -87,6 +89,14 @@ public class Computer {
         this.status = status;
     }
 
+    public String getStatusString() {
+        return statusString;
+    }
+
+    public void setStatusString(String statusString) {
+        this.statusString = statusString;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -114,6 +124,7 @@ public class Computer {
                 ", type='" + type + '\'' +
                 ", system='" + system + '\'' +
                 ", status=" + status +
+                ", statusString='" + statusString + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

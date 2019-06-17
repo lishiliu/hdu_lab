@@ -2,6 +2,7 @@ package cn.charlesxu.LabManager.service.impl;
 
 import cn.charlesxu.LabManager.dao.ComputerDao;
 import cn.charlesxu.LabManager.entity.Computer;
+import cn.charlesxu.LabManager.entity.define.ComputerStatusDefine;
 import cn.charlesxu.LabManager.service.ComputerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,7 +64,16 @@ public class ComputerServiceImpl implements ComputerService {
     public List<Computer> selectComputerByLabId(Integer labId) {
         Computer computer=new Computer();
         computer.setLabId(labId);
-        return computerDao.selectByRequest(computer);
+        List<Computer> computerList=computerDao.selectByRequest(computer);
+        for(int i=0;i<computerList.size();i++){
+            if(computerList.get(i).getStatus()==0){
+                computerList.get(i).setStatusString(ComputerStatusDefine.Status_0);
+            }
+            if(computerList.get(i).getStatus()==1){
+                computerList.get(i).setStatusString(ComputerStatusDefine.Status_1);
+            }
+        }
+        return computerList;
     }
 
     @Override
@@ -77,5 +87,10 @@ public class ComputerServiceImpl implements ComputerService {
             return  null;
         }
 
+    }
+
+    @Override
+    public int selectCountByRequest(Computer computer) {
+        return computerDao.selectCountByRequest(computer);
     }
 }
