@@ -30,6 +30,11 @@ public class StudentSignServiceTest extends BaseTest {
         int res=studentSignService.addStudent("40387","(2017-2018-1)-S0500500-40387-1","15012345","王大雷");
         System.out.println(res);
     }
+    @Test
+    public void updateStatus() {
+        int res=studentSignService.updateStatus("40387","(2017-2018-1)-S0500500-40387-1",1);
+        System.out.println(res);
+    }
 
 
 }

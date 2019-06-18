@@ -1,16 +1,12 @@
 package cn.charlesxu.LabManager.service.impl;
 
-import cn.charlesxu.LabManager.dao.SemesterDao;
-import cn.charlesxu.LabManager.dao.StudentDao;
-import cn.charlesxu.LabManager.dao.StudentSignDao;
-import cn.charlesxu.LabManager.dao.SystemParameterDao;
-import cn.charlesxu.LabManager.entity.Semester;
-import cn.charlesxu.LabManager.entity.Student;
-import cn.charlesxu.LabManager.entity.StudentSign;
+import cn.charlesxu.LabManager.dao.*;
+import cn.charlesxu.LabManager.entity.*;
 import cn.charlesxu.LabManager.entity.define.SignStatusDefine;
-import cn.charlesxu.LabManager.entity.SystemParameter;
 import cn.charlesxu.LabManager.entity.form.StudentSignInfoToStudent;
 import cn.charlesxu.LabManager.entity.form.StudentSignInfoToTeacher;
+import cn.charlesxu.LabManager.service.Job.EndSign;
+import cn.charlesxu.LabManager.service.Quartz.QuartzManager;
 import cn.charlesxu.LabManager.service.StudentSignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +33,12 @@ public class StudentSignServiceImpl implements StudentSignService {
     @Autowired
     private SystemParameterDao systemParamterDao;
 
+    @Autowired
+    private QuartzManager quartzManager;
+
+    @Autowired
+    private QuartzTaskDao quartzTaskDao;
+
     @Override
     public int signIn(StudentSign studentSign) {
         StudentSign request=new StudentSign();
@@ -59,6 +61,26 @@ public class StudentSignServiceImpl implements StudentSignService {
         request.setStatus(status);
         request.setCreateDate(getNowDateTime());
         //定时任务
+        //String CRON = dateToCron(getNowDateTime());
+        String CRON="0 27 16 18 06 ? 2019";
+        String JOB_NAME= teacherId + ":Status修改:" + getNowDateTime();
+        String JOB_GROUP_NAME= "UpdateSignStatus_JOB_GROUP";
+        quartzManager.addJob(EndSign.class, JOB_NAME, JOB_GROUP_NAME, CRON, request);
+        QuartzTask quartzTask = new QuartzTask();
+        quartzTask.setCron(CRON);
+        quartzTask.setStatus(0);
+        quartzTask.setStartDate(getNowDateTime());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(getNowDateTime());
+        cal.add(Calendar.HOUR, 1);// 24小时制
+        Date endDate = cal.getTime();
+        quartzTask.setEndDate(endDate);
+        quartzTask.setCreateTime(getNowDateTime());
+        quartzTask.setUpdateTime(getNowDateTime());
+        quartzTask.setClassName(EndSign.class.getName());
+        quartzTask.setJobName(JOB_NAME);
+        quartzTask.setJobGroupName(JOB_GROUP_NAME);
+        quartzTaskDao.insertSelective(quartzTask);
         return studentSignDao.updateStatusByClassIdAndWeekAndTeacher(request);
     }
 
@@ -142,5 +164,17 @@ public class StudentSignServiceImpl implements StudentSignService {
     public Date getNowDateTime() {
         Calendar calendar = Calendar.getInstance();
         return calendar.getTime();
+    }
+
+    public String dateToCron(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int year = cal.get(Calendar.YEAR);//获取年份
+        int month = cal.get(Calendar.MONTH) + 1;//获取月份
+        int day = cal.get(Calendar.DATE);//获取日
+        int hour = cal.get(Calendar.HOUR_OF_DAY)+1;//小时
+        int minute = cal.get(Calendar.MINUTE);//分
+        String CRON = "0" + " " + minute + " " + hour + " " + day + " " + month + " " + "? " + year;
+        return CRON;
     }
 }

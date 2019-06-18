@@ -49,9 +49,11 @@ public class AddWeek {
                    if(course.getClassWeek().contains(thisWeek)){
                        StudentSign request=new StudentSign();
                        request.setClassId(course.getClassId());
+                       request.setWeek(course.getClassWeek().get(0));
                        List<StudentSign> studentSigns=studentSignDao.selectByRequest(request);
                        if(studentSigns!=null){
                            for(StudentSign studentSign:studentSigns){
+                               studentSign.setId(null);
                                studentSign.setStatus(0);
                                studentSign.setComputerNo(null);
                                studentSign.setWeekDays(null);

@@ -29,8 +29,6 @@ public class QuartzTaskDaoImpl implements QuartzTaskDao{
     }
 
     public int insertSelective(QuartzTask record) {
-        record.setCreateTime(getNowDateTime());
-        record.setUpdateTime(getNowDateTime());
         return quartzTaskMapper.insertSelective(record);
     }
 
