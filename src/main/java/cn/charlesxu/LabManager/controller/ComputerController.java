@@ -67,7 +67,11 @@ public class ComputerController {
     Map<String, Object> addComputer(@RequestBody Computer computer) {
         String msg = computerService.addComputer(computer);
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        modelMap.put("result", "success");
+        if(msg.equals("IP已存在！")){
+            modelMap.put("result", "repeat");
+        }else{
+            modelMap.put("result", "success");
+        }
         modelMap.put("msg", msg);
         return modelMap;
     }
@@ -88,7 +92,11 @@ public class ComputerController {
     Map<String, Object> updateClass(@RequestBody Computer computer) {
         String msg = computerService.updateComputer(computer);
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        modelMap.put("result", "success");
+        if(msg.equals("IP已存在！")){
+            modelMap.put("result", "repeat");
+        }else{
+            modelMap.put("result", "success");
+        }
         modelMap.put("msg", msg);
         return modelMap;
     }

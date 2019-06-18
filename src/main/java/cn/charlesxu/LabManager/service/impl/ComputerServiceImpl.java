@@ -23,7 +23,7 @@ public class ComputerServiceImpl implements ComputerService {
         request.setComputerIp(computer.getComputerIp());
         List<Computer> computerList=computerDao.selectByRequest(request);
         String msg="";
-        if(computerList!=null){
+        if(computerList!=null&&computerList.size()>=1){
             msg="IP已存在！";
         }else{
             computerDao.insertSelective(computer);
