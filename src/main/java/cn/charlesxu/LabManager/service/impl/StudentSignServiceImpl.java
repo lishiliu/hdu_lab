@@ -61,8 +61,7 @@ public class StudentSignServiceImpl implements StudentSignService {
         request.setStatus(status);
         request.setCreateDate(getNowDateTime());
         //定时任务
-        //String CRON = dateToCron(getNowDateTime());
-        String CRON="0 27 16 18 06 ? 2019";
+        String CRON = dateToCron(getNowDateTime());
         String JOB_NAME= teacherId + ":Status修改:" + getNowDateTime();
         String JOB_GROUP_NAME= "UpdateSignStatus_JOB_GROUP";
         quartzManager.addJob(EndSign.class, JOB_NAME, JOB_GROUP_NAME, CRON, request);
