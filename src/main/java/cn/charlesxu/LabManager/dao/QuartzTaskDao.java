@@ -2,6 +2,7 @@ package cn.charlesxu.LabManager.dao;
 
 
 import cn.charlesxu.LabManager.entity.QuartzTask;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 
@@ -20,4 +21,6 @@ public interface QuartzTaskDao {
     ArrayList<QuartzTask> selectSelective(QuartzTask quartzTask);
 
     ArrayList<QuartzTask> getAllQuartzTask();
+
+    int updateStatusByJob(QuartzTask quartzTask);
 }

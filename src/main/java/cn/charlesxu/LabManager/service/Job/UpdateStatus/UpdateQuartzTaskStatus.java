@@ -18,9 +18,7 @@ public class UpdateQuartzTaskStatus {
         QuartzTask quartzTask=new QuartzTask();
         quartzTask.setJobName(jobName);
         quartzTask.setJobGroupName(jobGroupName);
-        List<QuartzTask> quartzTasks=quartzTaskDao.selectSelective(quartzTask);
-        quartzTask=quartzTasks.get(0);
         quartzTask.setStatus(1);
-        quartzTaskDao.updateById(quartzTask);
+        quartzTaskDao.updateStatusByJob(quartzTask);
     }
 }

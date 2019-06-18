@@ -49,6 +49,12 @@ public class QuartzTaskDaoImpl implements QuartzTaskDao{
         return quartzTaskMapper.getAllQuartzTask();
     }
 
+    @Override
+    public int updateStatusByJob(QuartzTask quartzTask) {
+        quartzTask.setUpdateTime(getNowDateTime());
+        return quartzTaskMapper.updateStatusByJob(quartzTask);
+    }
+
     public Date getNowDateTime() {
         Calendar calendar = Calendar.getInstance();
         return calendar.getTime();

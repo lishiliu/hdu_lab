@@ -1,6 +1,7 @@
 package cn.charlesxu.LabManager.mapper;
 
 import cn.charlesxu.LabManager.entity.QuartzTask;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,4 +21,6 @@ public interface QuartzTaskMapper {
     ArrayList<QuartzTask> selectSelective(QuartzTask quartzTask);
 
     ArrayList<QuartzTask> getAllQuartzTask();
+
+    int updateStatusByJob(QuartzTask quartzTask);
 }

@@ -191,6 +191,42 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
+    <update id="updateStatusByJob" parameterType="cn.charlesxu.LabManager.entity.QuartzTask">
+        update t_quartz_task
+        <set>
+            <if test="className != null">
+                class_name = #{className,jdbcType=VARCHAR},
+            </if>
+            <if test="jobName != null">
+                job_name = #{jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobGroupName != null">
+                job_group_name = #{jobGroupName,jdbcType=VARCHAR},
+            </if>
+            <if test="cron != null">
+                cron = #{cron,jdbcType=VARCHAR},
+            </if>
+            <if test="labId != null">
+                lab_id = #{labId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="startDate != null">
+                start_date = #{startDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where job_name = #{jobName,jdbcType=VARCHAR} AND job_group_name = #{jobGroupName,jdbcType=VARCHAR}
+    </update>
     <select id="getAllQuartzTask" resultMap="BaseResultMap">
         select * from t_quartz_task
     </select>

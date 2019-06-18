@@ -25,20 +25,20 @@ public class QuartzTaskStart implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         System.out.println("定时器初始化");
         //获取未执行的任务
-        QuartzTask quartzTask=new QuartzTask();
+       /* QuartzTask quartzTask=new QuartzTask();
         quartzTask.setStatus(0);
         List<QuartzTask> quartzTasks= quartzTaskDao.selectSelective(quartzTask);
-        if(quartzTasks!=null){
+        if(quartzTasks!=null&&quartzTasks.size()>0){
             for(QuartzTask quartzTask1:quartzTasks){
                 Class obj=Class.forName(quartzTask1.getClassName());
                 //重启未过时的任务
                 if(getNowDateTime().before(quartzTask1.getEndDate())){
                     quartzManager.addJob(obj,quartzTask1.getJobName(),quartzTask1.getJobGroupName(),quartzTask1.getCron());
                 }
-               /* //过时的任务删除
+               *//* //过时的任务删除
                 if(getNowDateTime().after(quartzTask1.getEndDate())){
                     quartzTaskMapper.deleteByPrimaryKey(quartzTask1.getId());
-                }*/
+                }*//*
                 //过时的未执行任务重新加一天定时
                 if(getNowDateTime().after(quartzTask1.getEndDate())){
                     String CRON=dateToCron(getNowDateTime());
@@ -50,11 +50,11 @@ public class QuartzTaskStart implements InitializingBean {
                     quartzTask1.setEndDate(c.getTime());
                     quartzTask1.setUpdateTime(getNowDateTime());
                     quartzTask1.setCron(CRON);
-                    quartzTaskDao.updateById(quartzTask1);
+                    quartzTaskDao.updateStatusByJob(quartzTask1);
                 }
             }
 
-        }
+        }*/
         System.out.println("定时器初始化成功");
     }
 
